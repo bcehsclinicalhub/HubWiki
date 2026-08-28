@@ -842,3 +842,33 @@ input.md-search__input {
     font-size: .95rem;
     line-height: 1.5;
 }
+.coverage-columns {
+    column-count: 3;
+    column-gap: 3rem;
+    margin-top: .5rem;
+}
+
+.coverage-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 2rem;
+    row-gap: .15rem;
+    margin-top: .4rem;
+}
+
+.coverage-grid ul {
+    margin: 0;
+    padding-left: 1rem;
+}
+
+.coverage-grid li {
+    margin: .15rem 0;
+    line-height: 1.25;
+    font-size: .9rem;
+}
+
+.coverage-columns div::before {
+    content: "📍";
+    margin-right: .45rem;
+    opacity: .8;
+}
