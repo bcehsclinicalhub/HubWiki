@@ -32,7 +32,7 @@ keywords:
 
 HSBC can be used to find a number of healthcare resources to support patient and paramedic decision-making.
 
-Includes: 
+**Includes**: 
 
 - Crisis hotlines 
 
