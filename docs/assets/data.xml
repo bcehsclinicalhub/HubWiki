@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Schedule xmlns="https://bytebloc.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://bytebloc.com https://ca.bytebloc.com/sk/Content/xsd/MainScheduleV5.xsd">
+<Schedule xmlns="https://bytebloc.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://bytebloc.com https://ca.bytebloc.com/sk/Content/xsd/MainScheduleV4.xsd">
   <ScheduleInfo xmlns="">
-    <DataOutputDate>2026-08-10T16:04:32-05:00</DataOutputDate>
+    <DataOutputDate>2026-08-27T19:02:02-05:00</DataOutputDate>
     <SchedId>f8ff180e651742e58451b47f0151c80c</SchedId>
     <SchedTitle>August 2026 EPOS Final</SchedTitle>
     <SchedDesc>As-worked</SchedDesc>
@@ -18,7 +18,6 @@
     <LocationId>dbf34eb1815f4debba6ce59a00522dc8</LocationId>
     <LocationCode>BCEHS</LocationCode>
     <LocationName>BC Emergency Health Services</LocationName>
-    <PayrollDetails>Afterhours Premium</PayrollDetails>
   </Location>
   <SiteList xmlns="">
     <Site>
@@ -217,13 +216,6 @@
         <Phone>
           <PhoneType>Mobile</PhoneType>
           <Number>2506170739</Number>
-          <Extension />
-          <Private>false</Private>
-          <SmsVerified>true</SmsVerified>
-        </Phone>
-        <Phone>
-          <PhoneType>Mobile</PhoneType>
-          <Number>7783499564</Number>
           <Extension />
           <Private>false</Private>
           <SmsVerified>true</SmsVerified>
@@ -1808,8 +1800,15 @@
             <SchedProvider>
               <ProviderId>a7cf6c02837d4fb984e97bdaf3a0cdc9</ProviderId>
               <ScheduledStart>2026-08-12T15:00:00-07:00</ScheduledStart>
-              <ScheduledEnd>2026-08-12T23:00:00-07:00</ScheduledEnd>
+              <ScheduledEnd>2026-08-12T22:00:00-07:00</ScheduledEnd>
               <WorkedStart>2026-08-12T15:00:00-07:00</WorkedStart>
+              <WorkedEnd>2026-08-12T22:00:00-07:00</WorkedEnd>
+            </SchedProvider>
+            <SchedProvider>
+              <ProviderId>11890dc7746c4e48a783b38a0159e1a3</ProviderId>
+              <ScheduledStart>2026-08-12T22:00:00-07:00</ScheduledStart>
+              <ScheduledEnd>2026-08-12T22:00:00-07:00</ScheduledEnd>
+              <WorkedStart>2026-08-12T22:00:00-07:00</WorkedStart>
               <WorkedEnd>2026-08-12T23:00:00-07:00</WorkedEnd>
             </SchedProvider>
           </SchedProviderList>
@@ -2205,10 +2204,17 @@
           <ShiftId>2980f0966b034ca8abd6a824015d3230</ShiftId>
           <SchedProviderList>
             <SchedProvider>
-              <ProviderId>15eb6bf6b49e4d3dbc72994d4817efe3</ProviderId>
+              <ProviderId>a144fc52605e43949300988c67b79dcc</ProviderId>
               <ScheduledStart>2026-08-19T15:00:00-07:00</ScheduledStart>
-              <ScheduledEnd>2026-08-19T23:00:00-07:00</ScheduledEnd>
+              <ScheduledEnd>2026-08-19T17:00:00-07:00</ScheduledEnd>
               <WorkedStart>2026-08-19T15:00:00-07:00</WorkedStart>
+              <WorkedEnd>2026-08-19T17:00:00-07:00</WorkedEnd>
+            </SchedProvider>
+            <SchedProvider>
+              <ProviderId>15eb6bf6b49e4d3dbc72994d4817efe3</ProviderId>
+              <ScheduledStart>2026-08-19T17:00:00-07:00</ScheduledStart>
+              <ScheduledEnd>2026-08-19T23:00:00-07:00</ScheduledEnd>
+              <WorkedStart>2026-08-19T17:00:00-07:00</WorkedStart>
               <WorkedEnd>2026-08-19T23:00:00-07:00</WorkedEnd>
             </SchedProvider>
           </SchedProviderList>
@@ -2273,7 +2279,7 @@
           <ShiftId>77cfcf3c76c34942bc2ba824015d5876</ShiftId>
           <SchedProviderList>
             <SchedProvider>
-              <ProviderId>c58536932f874be6896aa2128b190916</ProviderId>
+              <ProviderId>69a56c750d8a4c55b3d54877d022bac2</ProviderId>
               <ScheduledStart>2026-08-20T23:00:00-07:00</ScheduledStart>
               <ScheduledEnd>2026-08-21T07:00:00-07:00</ScheduledEnd>
               <WorkedStart>2026-08-20T23:00:00-07:00</WorkedStart>
@@ -2307,8 +2313,15 @@
             <SchedProvider>
               <ProviderId>93bb0f5a896941988e139172ea5ca5e4</ProviderId>
               <ScheduledStart>2026-08-21T12:00:00-07:00</ScheduledStart>
-              <ScheduledEnd>2026-08-22T00:00:00-07:00</ScheduledEnd>
+              <ScheduledEnd>2026-08-21T18:00:00-07:00</ScheduledEnd>
               <WorkedStart>2026-08-21T12:00:00-07:00</WorkedStart>
+              <WorkedEnd>2026-08-21T18:00:00-07:00</WorkedEnd>
+            </SchedProvider>
+            <SchedProvider>
+              <ProviderId>69a56c750d8a4c55b3d54877d022bac2</ProviderId>
+              <ScheduledStart>2026-08-21T18:00:00-07:00</ScheduledStart>
+              <ScheduledEnd>2026-08-22T00:00:00-07:00</ScheduledEnd>
+              <WorkedStart>2026-08-21T18:00:00-07:00</WorkedStart>
               <WorkedEnd>2026-08-22T00:00:00-07:00</WorkedEnd>
             </SchedProvider>
           </SchedProviderList>
@@ -2473,7 +2486,7 @@
           <ShiftId>718a8e2b87df48d0bbe8a824015d02ca</ShiftId>
           <SchedProviderList>
             <SchedProvider>
-              <ProviderId>69a56c750d8a4c55b3d54877d022bac2</ProviderId>
+              <ProviderId>93bb0f5a896941988e139172ea5ca5e4</ProviderId>
               <ScheduledStart>2026-08-24T12:00:00-07:00</ScheduledStart>
               <ScheduledEnd>2026-08-25T00:00:00-07:00</ScheduledEnd>
               <WorkedStart>2026-08-24T12:00:00-07:00</WorkedStart>
@@ -2485,10 +2498,24 @@
           <ShiftId>2980f0966b034ca8abd6a824015d3230</ShiftId>
           <SchedProviderList>
             <SchedProvider>
-              <ProviderId>93bb0f5a896941988e139172ea5ca5e4</ProviderId>
+              <ProviderId>bfe1d627e80b4e679785e3c0cfe040c9</ProviderId>
               <ScheduledStart>2026-08-24T15:00:00-07:00</ScheduledStart>
-              <ScheduledEnd>2026-08-24T23:00:00-07:00</ScheduledEnd>
+              <ScheduledEnd>2026-08-24T16:00:00-07:00</ScheduledEnd>
               <WorkedStart>2026-08-24T15:00:00-07:00</WorkedStart>
+              <WorkedEnd>2026-08-24T16:00:00-07:00</WorkedEnd>
+            </SchedProvider>
+            <SchedProvider>
+              <ProviderId>c58536932f874be6896aa2128b190916</ProviderId>
+              <ScheduledStart>2026-08-24T16:00:00-07:00</ScheduledStart>
+              <ScheduledEnd>2026-08-24T17:00:00-07:00</ScheduledEnd>
+              <WorkedStart>2026-08-24T16:00:00-07:00</WorkedStart>
+              <WorkedEnd>2026-08-24T17:00:00-07:00</WorkedEnd>
+            </SchedProvider>
+            <SchedProvider>
+              <ProviderId>bfe1d627e80b4e679785e3c0cfe040c9</ProviderId>
+              <ScheduledStart>2026-08-24T17:00:00-07:00</ScheduledStart>
+              <ScheduledEnd>2026-08-24T23:00:00-07:00</ScheduledEnd>
+              <WorkedStart>2026-08-24T17:00:00-07:00</WorkedStart>
               <WorkedEnd>2026-08-24T23:00:00-07:00</WorkedEnd>
             </SchedProvider>
           </SchedProviderList>
@@ -2541,10 +2568,17 @@
           <ShiftId>2980f0966b034ca8abd6a824015d3230</ShiftId>
           <SchedProviderList>
             <SchedProvider>
-              <ProviderId>a73fa1668e934f1fac07ff7b3464706f</ProviderId>
+              <ProviderId>a144fc52605e43949300988c67b79dcc</ProviderId>
               <ScheduledStart>2026-08-25T15:00:00-07:00</ScheduledStart>
-              <ScheduledEnd>2026-08-25T23:00:00-07:00</ScheduledEnd>
+              <ScheduledEnd>2026-08-25T21:00:00-07:00</ScheduledEnd>
               <WorkedStart>2026-08-25T15:00:00-07:00</WorkedStart>
+              <WorkedEnd>2026-08-25T21:00:00-07:00</WorkedEnd>
+            </SchedProvider>
+            <SchedProvider>
+              <ProviderId>a73fa1668e934f1fac07ff7b3464706f</ProviderId>
+              <ScheduledStart>2026-08-25T21:00:00-07:00</ScheduledStart>
+              <ScheduledEnd>2026-08-25T23:00:00-07:00</ScheduledEnd>
+              <WorkedStart>2026-08-25T21:00:00-07:00</WorkedStart>
               <WorkedEnd>2026-08-25T23:00:00-07:00</WorkedEnd>
             </SchedProvider>
           </SchedProviderList>
@@ -2609,7 +2643,7 @@
           <ShiftId>77cfcf3c76c34942bc2ba824015d5876</ShiftId>
           <SchedProviderList>
             <SchedProvider>
-              <ProviderId>69a56c750d8a4c55b3d54877d022bac2</ProviderId>
+              <ProviderId>c58536932f874be6896aa2128b190916</ProviderId>
               <ScheduledStart>2026-08-26T23:00:00-07:00</ScheduledStart>
               <ScheduledEnd>2026-08-27T07:00:00-07:00</ScheduledEnd>
               <WorkedStart>2026-08-26T23:00:00-07:00</WorkedStart>
@@ -2641,10 +2675,17 @@
           <ShiftId>718a8e2b87df48d0bbe8a824015d02ca</ShiftId>
           <SchedProviderList>
             <SchedProvider>
-              <ProviderId>df126a9a62d6418e8229a65a74c5a201</ProviderId>
+              <ProviderId>a144fc52605e43949300988c67b79dcc</ProviderId>
               <ScheduledStart>2026-08-27T12:00:00-07:00</ScheduledStart>
-              <ScheduledEnd>2026-08-28T00:00:00-07:00</ScheduledEnd>
+              <ScheduledEnd>2026-08-27T21:00:00-07:00</ScheduledEnd>
               <WorkedStart>2026-08-27T12:00:00-07:00</WorkedStart>
+              <WorkedEnd>2026-08-27T21:00:00-07:00</WorkedEnd>
+            </SchedProvider>
+            <SchedProvider>
+              <ProviderId>c58536932f874be6896aa2128b190916</ProviderId>
+              <ScheduledStart>2026-08-27T21:00:00-07:00</ScheduledStart>
+              <ScheduledEnd>2026-08-28T00:00:00-07:00</ScheduledEnd>
+              <WorkedStart>2026-08-27T21:00:00-07:00</WorkedStart>
               <WorkedEnd>2026-08-28T00:00:00-07:00</WorkedEnd>
             </SchedProvider>
           </SchedProviderList>
@@ -2709,10 +2750,17 @@
           <ShiftId>2980f0966b034ca8abd6a824015d3230</ShiftId>
           <SchedProviderList>
             <SchedProvider>
-              <ProviderId>1d441a3cffb444c083a1a9740160c6d1</ProviderId>
+              <ProviderId>a144fc52605e43949300988c67b79dcc</ProviderId>
               <ScheduledStart>2026-08-28T15:00:00-07:00</ScheduledStart>
-              <ScheduledEnd>2026-08-28T23:00:00-07:00</ScheduledEnd>
+              <ScheduledEnd>2026-08-28T19:00:00-07:00</ScheduledEnd>
               <WorkedStart>2026-08-28T15:00:00-07:00</WorkedStart>
+              <WorkedEnd>2026-08-28T19:00:00-07:00</WorkedEnd>
+            </SchedProvider>
+            <SchedProvider>
+              <ProviderId>1d441a3cffb444c083a1a9740160c6d1</ProviderId>
+              <ScheduledStart>2026-08-28T19:00:00-07:00</ScheduledStart>
+              <ScheduledEnd>2026-08-28T23:00:00-07:00</ScheduledEnd>
+              <WorkedStart>2026-08-28T19:00:00-07:00</WorkedStart>
               <WorkedEnd>2026-08-28T23:00:00-07:00</WorkedEnd>
             </SchedProvider>
           </SchedProviderList>
