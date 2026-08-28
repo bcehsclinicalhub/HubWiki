@@ -30,9 +30,7 @@ keywords:
 
 ## Services Included
 
-HSBC can be used to find a number of healthcare resources to support patient and paramedic decision-making.
-
-**Includes**: 
+HSBC can be used to find a number of healthcare resources to support patient and paramedic decision-making. Some of the services include: 
 
 - Crisis hotlines 
 
