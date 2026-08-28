@@ -30,22 +30,21 @@ keywords:
 
 ## Services Included
 
-Can be used to find a number of healthcare resources to support patient and paramedic decision-making.
+HSBC can be used to find a number of healthcare resources to support patient and paramedic decision-making.
 
 Includes: 
 
-Crisis hotlines 
+- Crisis hotlines 
 
-Environmental Health 
+- Environmental Health 
 
-Home Care Intake 
-                                                                                                                                                                                                                                                                                                     
-Hospitals 
+- Home Care Intake 
 
-Mental Health  Intake                                                                                                                                                                                                                                                                  
+- Hospitals 
 
-Pharmacy Services 
+- Mental Health Intake                                                                                                                                                                                                                                                                  
+- Pharmacy Services 
 
-Public Health Units 
+- Public Health Units 
 
-Walk-In Clinics 
+- Walk-In Clinics 
