@@ -8,6 +8,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: update-schedule
+  cancel-in-progress: false
+
 jobs:
   update:
     runs-on: ubuntu-latest
@@ -15,15 +19,19 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          ref: develop
+          fetch-depth: 0
 
       - name: Download latest schedule
+        id: download
         env:
           SECRET_URL: ${{ secrets.BYTEBLOC_URL }}
         run: |
           set -e
 
-          # We will attempt to download twice. If we get rate limited on attempt 1,
-          # we wait out the 10-minute cooldown and try one more time.
+          echo "schedule_ready=false" >> "$GITHUB_OUTPUT"
+
           for attempt in 1 2; do
             echo "Downloading latest schedule (Attempt $attempt)..."
 
@@ -51,21 +59,24 @@ jobs:
               exit 1
             fi
 
-            # Check for the actual error strings returned by ByteBloc
-            if grep -qi "ByteBloc rate limit reached" schedule.tmp || grep -qi "called at most once every 10 min" schedule.tmp; then
+            if grep -qi "ByteBloc rate limit reached" schedule.tmp || \
+               grep -qi "called at most once every 10 min" schedule.tmp; then
+
               if [ "$attempt" -eq 1 ]; then
-                echo "ByteBloc rate limit reached. Waiting 10.5 minutes (630s) to clear the cooldown..."
+                echo "ByteBloc rate limit reached."
+                echo "Waiting 10.5 minutes (630 seconds)..."
                 rm -f schedule.tmp
                 sleep 630
                 continue
               else
-                echo "ByteBloc rate limit reached again on attempt 2. Exiting."
+                echo "ByteBloc rate limit still active."
+                echo "Existing schedules will be retained."
+                echo "⚠ ByteBloc rate limit encountered. Existing schedules retained." >> "$GITHUB_STEP_SUMMARY"
                 rm -f schedule.tmp
-                exit 1
+                exit 0
               fi
             fi
 
-            # If we reached here without continuing, the download succeeded. Break the retry loop.
             break
           done
 
@@ -93,30 +104,57 @@ jobs:
             exit 1
           fi
 
-          mkdir -p docs/assets
+          cp schedule.tmp /tmp/new-schedule.xml
+          rm schedule.tmp
 
-          if [ -f docs/assets/data.xml ]; then
-            if cmp -s schedule.tmp docs/assets/data.xml; then
-              echo "Schedule unchanged."
-              rm schedule.tmp
-              exit 0
-            fi
-          fi
+          echo "schedule_ready=true" >> "$GITHUB_OUTPUT"
+          echo "Schedule downloaded and validated successfully."
 
-          mv schedule.tmp docs/assets/data.xml
-          echo "Schedule updated successfully."
-
-      - name: Commit updated schedule
+      - name: Update schedule on DEV and PRD
+        if: steps.download.outputs.schedule_ready == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add docs/assets/data.xml
+          update_branch() {
+            BRANCH="$1"
 
-          if git diff --cached --quiet; then
-            echo "Nothing changed."
-            exit 0
-          fi
+            echo ""
+            echo "========================================"
+            echo "Updating schedule on $BRANCH"
+            echo "========================================"
 
-          git commit -m "Update schedule"
-          git push
+            for attempt in 1 2 3; do
+              echo "Attempt $attempt..."
+
+              git fetch origin "$BRANCH"
+              git checkout -B "$BRANCH" "origin/$BRANCH"
+              git reset --hard "origin/$BRANCH"
+
+              mkdir -p docs/assets
+              cp /tmp/new-schedule.xml docs/assets/data.xml
+
+              git add docs/assets/data.xml
+
+              if git diff --cached --quiet; then
+                echo "Schedule already up to date on $BRANCH."
+                return 0
+              fi
+
+              git commit -m "Update schedule"
+
+              if git push origin HEAD:"$BRANCH"; then
+                echo "Successfully updated $BRANCH."
+                return 0
+              fi
+
+              echo "Push rejected because $BRANCH changed. Retrying..."
+              sleep 2
+            done
+
+            echo "ERROR: Could not update $BRANCH after 3 attempts."
+            return 1
+          }
+
+          update_branch develop
+          update_branch main
