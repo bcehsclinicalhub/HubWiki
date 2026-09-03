@@ -2,7 +2,7 @@ name: Update Schedule
 
 on:
   schedule:
-    - cron: '52 * * * *'   # Every hour
+    - cron: '52 * * * *' # Every hour
   workflow_dispatch:
 
 permissions:
@@ -23,15 +23,14 @@ jobs:
           ref: develop
           fetch-depth: 0
 
-
       - name: Download latest schedule
         env:
           SECRET_URL: ${{ secrets.BYTEBLOC_URL }}
         run: |
           set -e
 
-          # We will attempt to download twice. If we get rate limited on attempt 1,
-          # we wait out the 10-minute cooldown and try one more time.
+          # We will attempt to download twice. If we get rate limited on
+          # attempt 1, wait out the 10-minute cooldown and try once more.
           for attempt in 1 2; do
             echo "Downloading latest schedule (Attempt $attempt)..."
 
@@ -59,24 +58,27 @@ jobs:
               exit 1
             fi
 
-            # Check for the actual error strings returned by ByteBloc
-            if grep -qi "ByteBloc rate limit reached" schedule.tmp || grep -qi "called at most once every 10 min" schedule.tmp; then
+            # Check for the actual error strings returned by ByteBloc.
+            if grep -qi "ByteBloc rate limit reached" schedule.tmp || \
+               grep -qi "called at most once every 10 min" schedule.tmp; then
+
               if [ "$attempt" -eq 1 ]; then
-                echo "ByteBloc rate limit reached. Waiting 10.5 minutes (630s) to clear the cooldown..."
+                echo "ByteBloc rate limit reached."
+                echo "Waiting 10.5 minutes (630s) to clear the cooldown..."
                 rm -f schedule.tmp
                 sleep 630
                 continue
               else
                 echo "ByteBloc rate limit still active."
-                echo "Keeping existing schedule.xml."
+                echo "Keeping existing schedule."
                 echo "Will try again during the next scheduled run."
                 echo "⚠ ByteBloc rate limit encountered. Existing schedule retained." >> "$GITHUB_STEP_SUMMARY"
                 rm -f schedule.tmp
                 exit 0
               fi
-            fi    
+            fi
 
-            # If we reached here without continuing, the download succeeded. Break the retry loop.
+            # Download succeeded.
             break
           done
 
@@ -104,56 +106,62 @@ jobs:
             exit 1
           fi
 
-          mkdir -p docs/assets
+          # Keep the validated download outside the repository.
+          # We will apply it independently to develop and main.
+          cp schedule.tmp /tmp/new-schedule.xml
+          rm schedule.tmp
 
-          if [ -f docs/assets/data.xml ]; then
-            if cmp -s schedule.tmp docs/assets/data.xml; then
-              echo "Schedule unchanged."
-              rm schedule.tmp
-              exit 0
-            fi
-          fi
+          echo "Schedule downloaded and validated successfully."
 
-          mv schedule.tmp docs/assets/data.xml
-          echo "Schedule updated successfully."
-
-      - name: Commit updated schedule
+      - name: Update schedule on DEV and PRD
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          # Save the freshly downloaded schedule outside the repository.
-          cp docs/assets/data.xml /tmp/new-schedule.xml
+          update_branch() {
+            BRANCH="$1"
 
-          # Try a few times in case develop changes while we are committing.
-          for attempt in 1 2 3; do
-          echo "Preparing commit (attempt $attempt)..."
+            echo ""
+            echo "========================================"
+            echo "Updating schedule on $BRANCH"
+            echo "========================================"
 
-          # Get the latest version of develop.
-          git fetch origin develop
-          git reset --hard origin/develop
+            for attempt in 1 2 3; do
+              echo "Attempt $attempt..."
 
-          # Restore the freshly downloaded schedule.
-          mkdir -p docs/assets
-          cp /tmp/new-schedule.xml docs/assets/data.xml
+              # Get the latest version of this branch.
+              git fetch origin "$BRANCH"
+              git checkout -B "$BRANCH" "origin/$BRANCH"
+              git reset --hard "origin/$BRANCH"
 
-          git add docs/assets/data.xml
+              # Apply the freshly downloaded schedule.
+              mkdir -p docs/assets
+              cp /tmp/new-schedule.xml docs/assets/data.xml
 
-          if git diff --cached --quiet; then
-          echo "Schedule is already up to date."
-          exit 0
-          fi
+              git add docs/assets/data.xml
 
-          git commit -m "Update schedule"
+              if git diff --cached --quiet; then
+                echo "Schedule already up to date on $BRANCH."
+                return 0
+              fi
 
-          if git push origin HEAD:develop; then
-          echo "Schedule successfully pushed."
-          exit 0
-          fi
+              git commit -m "Update schedule"
 
-          echo "Push was rejected because develop changed. Retrying..."
-          sleep 2
-          done
+              if git push origin HEAD:"$BRANCH"; then
+                echo "Successfully updated $BRANCH."
+                return 0
+              fi
 
-          echo "Unable to push schedule after 3 attempts."
-          exit 1
+              echo "Push rejected because $BRANCH changed. Retrying..."
+              sleep 2
+            done
+
+            echo "ERROR: Could not update $BRANCH after 3 attempts."
+            return 1
+          }
+
+          # Update DEV first.
+          update_branch develop
+
+          # Then update PRD.
+          update_branch main
