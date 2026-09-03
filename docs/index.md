@@ -4,6 +4,9 @@
   <span class="hero-tagline">your clinical and operational wiki site for the Clinical Hub</span>
 </div>
 
+!!! note "GENESYS REFERENCE GUIDE"
+    ~ coming soon ~
+
 <div class="grid cards" markdown>
 * :ambulance: **Paramedic Specialists** [Enter PS Page →](ps/index.md){ .md-button }
 * <span style="color: #d32f2f;">☎</span> **Secondary Triage** [Enter STC Page →](stc/index.md){ .md-button }
