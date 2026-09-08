@@ -13,7 +13,7 @@
         </div>
         <div class="schedule-body" style="display: flex; flex-direction: column; gap: 0.5rem; padding: 0.75rem 1.25rem 1rem;">
             <a href="assets/CH-Genesys-QRG-Final-v2.pdf" target="_blank">Quick Reference Guide</a>
-            <a href="assets/CH-Genesys-SOP" target="_blank">Clinical HUB SOP</a>
+            <a href="assets/CH-Genesys-SOP.pdf" target="_blank">Clinical Hub SOP</a>
         </div>
     </div>
 </div>
