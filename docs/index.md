@@ -6,14 +6,14 @@
 
 <div class="schedule-wrapper" style="margin-bottom: 1.5rem;">
     <div class="schedule-card">
-        <div class="schedule-header">
+        <div class="schedule-header" style="padding: 0.6rem 1.25rem;">
             <div class="schedule-title">
-                <h2>📖 Genesys References</h2>
+                <h2 style="margin: 0; line-height: 1.2;">📖 Genesys References</h2>
             </div>
         </div>
-        <div class="schedule-body" style="display: flex; flex-direction: column; gap: 0.5rem; padding: 1rem 1.25rem;">
-            <a href="/docs/assets/CH-Genesys-QRG-Final-v2.pdf" target="_blank">Quick Reference Guide</a>
-            <a href="/docs/assets/CH-Genesys-SOP" target="_blank">Standard Operating Procedure</a>
+        <div class="schedule-body" style="display: flex; flex-direction: column; gap: 0.5rem; padding: 0.75rem 1.25rem 1rem;">
+            <a href="assets/CH-Genesys-QRG-Final-v2.pdf" target="_blank">Quick Reference Guide</a>
+            <a href="assets/CH-Genesys-SOP" target="_blank">Clinical HUB SOP</a>
         </div>
     </div>
 </div>
