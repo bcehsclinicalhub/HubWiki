@@ -4,11 +4,19 @@
   <span class="hero-tagline">your clinical and operational wiki site for the Clinical Hub</span>
 </div>
 
-!!! note "Genesys References"
-<a href="/docs/assets/CH Genesys QRG Final v2.pdf" target="_blank">Quick Reference Guide</a>
-
-<a href="/docs/assets/Clinical Hub Genesys Standard Operation Procedure" target="_blank">Clinical HUB SOP</a>
-
+<div class="schedule-wrapper" style="margin-bottom: 1.5rem;">
+    <div class="schedule-card">
+        <div class="schedule-header">
+            <div class="schedule-title">
+                <h2>📖 Genesys References</h2>
+            </div>
+        </div>
+        <div class="schedule-body" style="display: flex; flex-direction: column; gap: 0.5rem; padding: 1rem 1.25rem;">
+            <a href="/docs/assets/CH Genesys QRG Final v2.pdf" target="_blank">Quick Reference Guide</a>
+            <a href="/docs/assets/Clinical Hub Genesys Standard Operation Procedure" target="_blank">Clinical HUB SOP</a>
+        </div>
+    </div>
+</div>
 
 <div class="grid cards" markdown>
 * :ambulance: **Paramedic Specialists** [Enter PS Page →](ps/index.md){ .md-button }
