@@ -4,8 +4,11 @@
   <span class="hero-tagline">your clinical and operational wiki site for the Clinical Hub</span>
 </div>
 
-!!! note "GENESYS REFERENCE GUIDE"
-    ~ coming soon ~
+!!! note "Genesys References"
+<a href="/docs/assets/CH Genesys QRG Final v2.pdf" target="_blank">Quick Reference Guide</a>
+
+<a href="/docs/assets/Clinical Hub Genesys Standard Operation Procedure" target="_blank">Clinical HUB SOP</a>
+
 
 <div class="grid cards" markdown>
 * :ambulance: **Paramedic Specialists** [Enter PS Page →](ps/index.md){ .md-button }
