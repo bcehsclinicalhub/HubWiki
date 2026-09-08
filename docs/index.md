@@ -12,8 +12,8 @@
             </div>
         </div>
         <div class="schedule-body" style="display: flex; flex-direction: column; gap: 0.5rem; padding: 1rem 1.25rem;">
-            <a href="/docs/assets/CH Genesys QRG Final v2.pdf" target="_blank">Quick Reference Guide</a>
-            <a href="/docs/assets/Clinical Hub Genesys Standard Operation Procedure" target="_blank">Clinical HUB SOP</a>
+            <a href="/docs/assets/CH-Genesys-QRG-Final-v2.pdf" target="_blank">Quick Reference Guide</a>
+            <a href="/docs/assets/CH-Genesys-SOP" target="_blank">Standard Operating Procedure</a>
         </div>
     </div>
 </div>
