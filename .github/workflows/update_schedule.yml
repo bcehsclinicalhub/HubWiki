@@ -24,13 +24,14 @@ jobs:
           fetch-depth: 0
 
       - name: Download latest schedule
+        id: download
         env:
           SECRET_URL: ${{ secrets.BYTEBLOC_URL }}
         run: |
           set -e
 
-          # We will attempt to download twice. If we get rate limited on
-          # attempt 1, wait out the 10-minute cooldown and try once more.
+          echo "schedule_ready=false" >> "$GITHUB_OUTPUT"
+
           for attempt in 1 2; do
             echo "Downloading latest schedule (Attempt $attempt)..."
 
@@ -58,27 +59,42 @@ jobs:
               exit 1
             fi
 
+<<<<<<< HEAD
             # Check for the actual error strings returned by ByteBloc.
+=======
+>>>>>>> develop
             if grep -qi "ByteBloc rate limit reached" schedule.tmp || \
                grep -qi "called at most once every 10 min" schedule.tmp; then
 
               if [ "$attempt" -eq 1 ]; then
                 echo "ByteBloc rate limit reached."
+<<<<<<< HEAD
                 echo "Waiting 10.5 minutes (630s) to clear the cooldown..."
+=======
+                echo "Waiting 10.5 minutes (630 seconds)..."
+>>>>>>> develop
                 rm -f schedule.tmp
                 sleep 630
                 continue
               else
                 echo "ByteBloc rate limit still active."
+<<<<<<< HEAD
                 echo "Keeping existing schedule."
                 echo "Will try again during the next scheduled run."
                 echo "⚠ ByteBloc rate limit encountered. Existing schedule retained." >> "$GITHUB_STEP_SUMMARY"
+=======
+                echo "Existing schedules will be retained."
+                echo "⚠ ByteBloc rate limit encountered. Existing schedules retained." >> "$GITHUB_STEP_SUMMARY"
+>>>>>>> develop
                 rm -f schedule.tmp
                 exit 0
               fi
             fi
 
+<<<<<<< HEAD
             # Download succeeded.
+=======
+>>>>>>> develop
             break
           done
 
@@ -106,6 +122,7 @@ jobs:
             exit 1
           fi
 
+<<<<<<< HEAD
           # Keep the validated download outside the repository.
           # We will apply it independently to develop and main.
           cp schedule.tmp /tmp/new-schedule.xml
@@ -114,6 +131,16 @@ jobs:
           echo "Schedule downloaded and validated successfully."
 
       - name: Update schedule on DEV and PRD
+=======
+          cp schedule.tmp /tmp/new-schedule.xml
+          rm schedule.tmp
+
+          echo "schedule_ready=true" >> "$GITHUB_OUTPUT"
+          echo "Schedule downloaded and validated successfully."
+
+      - name: Update schedule on DEV and PRD
+        if: steps.download.outputs.schedule_ready == 'true'
+>>>>>>> develop
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -129,12 +156,18 @@ jobs:
             for attempt in 1 2 3; do
               echo "Attempt $attempt..."
 
+<<<<<<< HEAD
               # Get the latest version of this branch.
+=======
+>>>>>>> develop
               git fetch origin "$BRANCH"
               git checkout -B "$BRANCH" "origin/$BRANCH"
               git reset --hard "origin/$BRANCH"
 
+<<<<<<< HEAD
               # Apply the freshly downloaded schedule.
+=======
+>>>>>>> develop
               mkdir -p docs/assets
               cp /tmp/new-schedule.xml docs/assets/data.xml
 
@@ -160,8 +193,12 @@ jobs:
             return 1
           }
 
+<<<<<<< HEAD
           # Update DEV first.
           update_branch develop
 
           # Then update PRD.
+=======
+          update_branch develop
+>>>>>>> develop
           update_branch main

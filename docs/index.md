@@ -4,6 +4,20 @@
   <span class="hero-tagline">your clinical and operational wiki site for the Clinical Hub</span>
 </div>
 
+<div class="schedule-wrapper" style="margin-bottom: 1.5rem;">
+    <div class="schedule-card">
+        <div class="schedule-header" style="padding: 0.6rem 1.25rem;">
+            <div class="schedule-title">
+                <h2 style="margin: 0; line-height: 1.2;">📖 Genesys References</h2>
+            </div>
+        </div>
+        <div class="schedule-body" style="display: flex; flex-direction: column; gap: 0.5rem; padding: 0.75rem 1.25rem 1rem;">
+            <a href="assets/CH-Genesys-QRG-Final-v2.pdf" target="_blank">Quick Reference Guide</a>
+            <a href="assets/CH-Genesys-SOP.pdf" target="_blank">Clinical Hub SOP</a>
+        </div>
+    </div>
+</div>
+
 <div class="grid cards" markdown>
 * :ambulance: **Paramedic Specialists** [Enter PS Page →](ps/index.md){ .md-button }
 * <span style="color: #d32f2f;">☎</span> **Secondary Triage** [Enter STC Page →](stc/index.md){ .md-button }
