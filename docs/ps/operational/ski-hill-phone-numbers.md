@@ -31,8 +31,9 @@ keywords:
 
 # Ski Patrol Hut Phone Numbers<br>
 
+**Contact Info**
+
 - Grouse Mountain: 604-980-9311 #4321
-(https://www.grousemountain.com/web-cams){:target="_blank .external-link}
 
 - Mount Seymour: 604-986-2294
 
@@ -51,9 +52,17 @@ keywords:
 
 [Grouse](https://www.grousemountain.com/web-cams){:target="_blank .external-link}
 
-[Working In and Around Moving Vehicles and Equipment](https://shop.healthcarebc.ca/phsa/BCEHS/Guidelines/C-04-07-85274.pdf){:target="_blank .external-link}
+[Seymour](https://mtseymour.ca/the-mountain/todays-conditions-hours){:target="_blank .external-link}
 
-[Paramedic Specialist Deployment and Dispatching Procedure](https://shop.healthcarebc.ca/phsa/BCEHS/Guidelines/C-04-07-85256.pdf){:target="_blank .external-link}
+[Cypress](https://www.cypressmountain.com/webcams){:target="_blank .external-link}
+
+[Whistler](https://www.whistlerblackcomb.com/the-mountain/mountain-conditions/mountain-cams.aspx){:target="_blank .external-link}
+
+[Sun Peaks](https://www.sunpeaksresort.com/bike-hike/weather-webcams/webcams){:target="_blank .external-link}
+
+[Silver Star](https://www.skisilverstar.com/the-mountain/webcams/){:target="_blank .external-link}
+
+[Big White](https://www.bigwhite.com/mountain-conditions/webcams){:target="_blank .external-link}
 
 ## Review Schedule
 
