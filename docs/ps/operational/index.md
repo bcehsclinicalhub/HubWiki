@@ -15,6 +15,9 @@
 
 ## S
 <div class="index-grid">
+    <a href="ski-hill-phone-numbers/">Ski Hill Phone Numbers</a>
+</div>
+<div class="index-grid">
     <a href="skytrain-response-safety/">Skytrain Response Safety</a>
 </div>
 
@@ -30,7 +33,7 @@
 
 ## W
 <div class="index-grid">
-    <a href="wreck-beach-procedure/">Wrech Beach Procedures</a>
+    <a href="wreck-beach-procedure/">Wreck Beach Procedures</a>
 </div>
 
 <a href="#" class="back-to-top">↑ TOP</a>
