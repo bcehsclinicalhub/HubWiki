@@ -49,6 +49,8 @@ d) **VTBI:**
 Volume To Be Infused. Sets the limit for how much the pump will deliver. When setting the VTBI the time of infusion will be displayed at the bottom of the screen. NOTE: the VTBI will vary for 
 different dose rates as it only specifies the volume and not the amount of drug.
 
+e) **Special Authorized Medication:** 
+Medications that are outside of normal PCP scope of practice that a PCP may administer during an IFT when a care plan has been established and agreed upon by the sending physician, the paramedic advisor, EPOS and the transporting crew.
 
 ## Scope
 
@@ -61,7 +63,7 @@ PCPs will be caring for patients who are expected to be stable during transport 
 - Vascular Constriction Band
 - PRN medication administration required during transport
 
-The PCP crews will be able to administer out-of-scope medications either using the IV pump or PRN by any route under the orders of an EPOS physician or transport advisor. 
+The PCP crews will be able to administer out-of-scope medications, as approved by EPOS only using a route they are licensed to administer by. For example, they can run an infusion through an IV line, but are not permitted to run an infusion through a PICC line or central line.
 
 ## Procedure
 
@@ -74,7 +76,7 @@ If the treatment plan involves an out-of-scope medication, the PCP crew will nee
 **PS Involvement**
 
   * **The crew calls you when they should have called the CCP-A:** They’re supposed to call the CCP-A on the way to their call. If they call you instead, please transfer them over to the CCP-A.
-  * **The crew needs to discuss administering an out-of-scope medication:** Please connect them to EPOS.
+  * **The crew needs to discuss administering an out-of-scope medication:** Please connect them to EPOS. Consider routing through the CCP-A first in the event they may have important information to add to the consult.
   * **The CCP-A has previously determined that the transfer is PCP appropriate, but when the crew arrives they feel it isn’t appropriate for them to manage:** If the event falls under this PCP-IFT procedure and has already been vetted by the CCP-A or ITT-A, please connect the crew to them. If the consultation is related to an IFT that is not a part of this trial, please continue to manage these consults as you normally would. 
   * **The crew is having trouble with a pump:** Help them troubleshoot their problem, there’s no need to transfer the call! I requested that the PS desk be provided with an extra IV pump so that we can better assist crews who are having trouble. Please take some time to practice with the pump while you’re at the desk so you’re prepared to support crews who might need help troubleshooting a device that is new to them. 
   * **The crew has a question about a medication or intervention during a transfer:** Some of these you should transfer to the CCP-A or EPOS, but some of these we can manage ourselves. You can help the crew with clinical decision making within the confines of the EPOS orders they have already received. If you have concerns, feel free to escalate to EPOS, but also don’t hesitate to support crews when you are able to do so. 
@@ -109,6 +111,16 @@ The pump attaches to the bracket by sliding lining up the grooves on the pump wi
 * A new bag of medication must be provided by a facility on an IFT as our pump sets are different than regular hospital sets
 * Understand standby mode (hold power when a pump set is loaded)
 
+**Formulas**
+
+!!! abstract "🔣 Formulas"
+    <div style="text-align: center; line-height: 1.8; font-weight: 500;">
+    Volume = Rate × Time<br>
+    Concentration = Drug Amount ÷ Volume<br>
+    Dose Rate = Concentration × Fluid Rate<br>
+    Infusion Rate = VTBI ÷ Time
+    </div>
+
 **Common Alarms**
 
 **Downstream Occlusion** 
@@ -134,13 +146,11 @@ The pump attaches to the bracket by sliding lining up the grooves on the pump wi
 
 *Causes:*
 
-- Clamp closed between pump and IV bag
 - Closed vent port on drip chamber with rigid container
 - Kinked upstream tubing
 
 *Solutions:*
 
-- Open clamp
 - Open vent port
 - Un-kink tubing
 
