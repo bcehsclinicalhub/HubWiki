@@ -114,6 +114,8 @@ The pump attaches to the bracket by sliding lining up the grooves on the pump wi
 <div style="border: 2px solid #f97316; border-radius: 6px; overflow: hidden; max-width: 440px; margin: 1.5em auto; font-family: sans-serif; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
   <!-- Top accent bar with icon -->
   <div style="background-color: #ffedd5; padding: 6px 12px; text-align: center; border-bottom: 1px solid #fed7aa; display: flex; align-items: center; justify-content: center;">
+  <span style="font-size: 1.1em;">🔣</span>
+  <span>Formulas</span>
   </div>
 
   <!-- Content body with bold variables -->
