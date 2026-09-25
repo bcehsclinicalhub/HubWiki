@@ -113,13 +113,36 @@ The pump attaches to the bracket by sliding lining up the grooves on the pump wi
 
 **Formulas**
 
-!!! abstract "🔣 Formulas"
+!!! abstract "🔣"
     <div style="text-align: center; line-height: 1.8; font-weight: 500;">
     Volume = Rate × Time<br>
     Concentration = Drug Amount ÷ Volume<br>
     Dose Rate = Concentration × Fluid Rate<br>
     Infusion Rate = VTBI ÷ Time
     </div>
+
+!!! abstract ""
+    <div style="text-align: center; line-height: 1.8;">
+    **Volume** = Rate × Time<br>
+    **Concentration** = Drug Amount ÷ Volume<br>
+    **Dose Rate** = Concentration × Fluid Rate<br>
+    **Infusion Rate** = VTBI ÷ Time
+    </div>
+
+<div style="border: 2px solid #f97316; border-radius: 6px; overflow: hidden; max-width: 440px; margin: 1.5em auto; font-family: sans-serif; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
+  <!-- Top accent bar with icon -->
+  <div style="background-color: #ffedd5; padding: 6px 12px; text-align: center; border-bottom: 1px solid #fed7aa; display: flex; align-items: center; justify-content: center;">
+    <span style="font-size: 1.1em;">🔣</span>
+  </div>
+
+  <!-- Content body with bold variables -->
+  <div style="background-color: #ffffff; padding: 14px 16px; text-align: center; line-height: 1.9; color: #0f172a; font-size: 0.95em;">
+    <div><strong>Volume</strong> = Rate × Time</div>
+    <div><strong>Concentration</strong> = Drug Amount ÷ Volume</div>
+    <div><strong>Dose Rate</strong> = Concentration × Fluid Rate</div>
+    <div><strong>Infusion Rate</strong> = VTBI ÷ Time</div>
+  </div>
+</div>
 
 **Common Alarms**
 
