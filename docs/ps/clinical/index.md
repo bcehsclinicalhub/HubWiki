@@ -10,9 +10,12 @@
 
 ## B
 <div class="index-grid">
-    <a href="bed-bugs-procedure/">Bed Bugs</a>
+    <a href="bc-cancer-victoria/">BC Cancer- Victoria</a>
 </div>
 
+<div class="index-grid">
+    <a href="bed-bugs-procedure/">Bed Bugs</a>
+</div>
 ## E
 <div class="index-grid">
     <a href="evd-facts/">Ebola Virus Fact Sheet</a>
