@@ -27,7 +27,7 @@ keywords:
 
 This pathway provides guidance for paramedics and clinical hub staff when considering a Community Health Services (CHS) ASTaR referral for patients in Island Health (ISLH) communities. 
 
-!!! note "Operational Note"
+!!! warning "Operational Note"
     Use of this pathway is currently only available for patients living in Island Health communities.
 
 ---
