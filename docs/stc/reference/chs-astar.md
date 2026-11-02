@@ -21,11 +21,14 @@ keywords:
   - ISLH
 ---
 
-# BCEHS Island Health Community Health Services (ASTaR)<br> <span style="font-size: 0.8em; font-style: italic;">Referral Request from Crew</span>
+# Island Health Community Health Services ASTaR<br> <span style="font-size: 0.8em; font-style: italic;">STC Workflow</span>
 
 ## Purpose
 
-This pathway provides guidance for paramedics and clinical hub staff when considering a Community Health Services ASTaR referral for patients in Island Health (ISLH) communities. 
+This pathway provides guidance for paramedics and clinical hub staff when considering a Community Health Services (CHS) ASTaR referral for patients in Island Health (ISLH) communities. 
+
+!!! note "Operational Note"
+    Use of this pathway is currently only available for patients living in Island Health communities.
 
 ---
 
@@ -42,7 +45,7 @@ This pathway provides guidance for paramedics and clinical hub staff when consid
       <li>No NEWS2 score &ge; 3 in a single category</li>
       <li>Patient has capacity to consent to referral</li>
       <li>Vital signs within normal range</li>
-      <li>Patient must be accessible by phone</li>
+      <li>Patient <strong>must</strong> be accessible by phone</li>
       <li>Physical location exists for team to attend</li>
       <li>Mental health and/or substance use concerns applicable <strong>only</strong> for patients &gt; 75 years of age</li>
     </ul>
@@ -55,7 +58,7 @@ This pathway provides guidance for paramedics and clinical hub staff when consid
       <li>Patients &lt; 19 years of age</li>
       <li>NEWS2 score &ge; 5 in total</li>
       <li>NEWS2 score &ge; 3 in a single category</li>
-      <li>Main concern is mental health / substance use related (EXCEPT patients &gt; 75 years)</li>
+      <li>Main concern is mental health / substance use related (<strong>EXCEPT</strong> patients &gt; 75 years)</li>
       <li>Patient does not have capacity to consent</li>
       <li>Patients on boats (community nurses cannot attend; must go to a clinic)</li>
       <li>No physical location for team to attend and patient unable to go to a clinic</li>
@@ -74,30 +77,30 @@ If appropriate, conference the crew with the appropriate **ISLH Community Health
 <div class="decision-grid">
 
   <div class="decision-card reference-card">
-    <h3>South Island (S)</h3>
+    <h3>South Island Community Health Intake</h3>
     <p><strong>Victoria area and Gulf Islands</strong></p>
     <hr>
-    <p>Contact via Clinical Hub external routing</p>
+    <p>Contact via Genesys external contact</p>
   </div>
 
   <div class="decision-card reference-card">
-    <h3>Central Island (C)</h3>
+    <h3>Central Island Community Health Intake</h3>
     <p><strong>Nanaimo to Courtenay</strong></p>
     <hr>
-    <p>Contact via Clinical Hub external routing</p>
+    <p>Contact via Genesys external contact</p>
   </div>
 
   <div class="decision-card reference-card">
-    <h3>North Island (N)</h3>
+    <h3>North Island Community Health Intake</h3>
     <p><strong>Campbell River to Port Hardy</strong></p>
     <hr>
-    <p>Contact via Clinical Hub external routing</p>
+    <p>Contact via Genesys external contact</p>
   </div>
 
 </div>
 
 !!! info "Operational Note"
-    Once the crew is successfully connected with health services (or connected to voicemail after hours), the Clinical Hub call handler or Paramedic Specialist may disconnect.
+    Once the crew is successfully connected with health services (or connected to voicemail after hours), the Clinical Hub caller may disconnect.
 
 ---
 
