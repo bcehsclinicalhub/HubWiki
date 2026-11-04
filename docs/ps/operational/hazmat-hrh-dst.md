@@ -43,9 +43,9 @@ This DST applies to **ALL** Paramedic Specialists when they become aware of an e
 ### a. Initial Identification & Action
 After identifying an event with a HAZMAT/HRH concern, the Paramedic Specialist must:
 
-* **Consider Risk & Perimeters:** 
+1. Consider Risk & Perimeters 
 
-- Assess the nature of the risk and determine if a perimeter is required:
+2. Assess the nature of the risk and determine if a perimeter is required:
 
 **Existing Perimeters:** If an EMD has already placed a perimeter, review it to ensure it is clinically and operationally safe and effective. The PS may leave it unchanged, increase/decrease its size, remove it, or speak with the EMD/CEMD to request changes.
 
