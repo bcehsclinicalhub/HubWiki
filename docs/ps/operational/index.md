@@ -13,6 +13,16 @@
     <a href="calls-evac-zones/">Evacuation Zones</a>
 </div>
 
+## H
+<div class="index-grid">
+    <a href="hazmat-hrh-dst">Hazmat & HRH DST</a>
+</div>
+
+## P
+<div class="index-grid">
+    <a href="ps-deployment/">PS Deployment</a>
+</div>
+
 ## S
 <div class="index-grid">
     <a href="ski-hill-phone-numbers/">Ski Hill Phone Numbers</a>
