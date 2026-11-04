@@ -112,4 +112,4 @@ If a hospital contacts a Paramedic Specialist for advice regarding a HAZMAT/HRH 
 
 | Adopted | Next Review Scheduled | Owner | Reviewer| 
 | :--- | :--- | :--- | :--- | 
-| Nov 2026 | Nov 2027 | Clinical Hub Manager | Clinical Hub PPEd |
+| Nov 2026 | Nov 2027 | BCEHS COO | Clinical Hub Operations Manager  |
