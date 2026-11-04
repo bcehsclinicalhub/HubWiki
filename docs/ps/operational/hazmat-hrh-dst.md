@@ -1,21 +1,36 @@
-# Paramedic Specialist HAZMAT and HRH Review - Decision Support Tool
-
-* **Document ID:** C-04-12-85410[cite: 24]
-* **Effective Date:** October 23, 2026[cite: 24]
-* **Policy Owner:** COO BCEHS[cite: 27]
-* **Next Review:** October 26, 2029[cite: 27]
-
 ---
+title: Hazmat and HRH Decision Support Tool
+policy_id: 
+version: 1.0
+status: Active
+effective_date: 2026-11-01
+last_reviewed: 2026-11-01
+next_review: 2027-11-01
+owner: Clinical Hub
+category: Operational
+
+tags:
+  - Hazmat
+  - Safety
+  - DST
+
+keywords:
+  - Hazmat
+  - Safety
+  - HRH
+---
+
+# Paramedic Specialist HAZMAT and HRH Review <br> <span style="font-size: 0.8em; font-style: italic;">Decision Support Tool</span> 
 
 ## 1. Applicability
 
-This Decision Support Tool (DST) provides guidance and best practice to Paramedic Specialists (PS) when making decisions related to event perimeters, staging, and pre-arrival instructions for events involving hazardous materials (HAZMAT) and/or high-risk hazard (HRH) concerns[cite: 24]. 
+This Decision Support Tool (DST) provides guidance and best practice to Paramedic Specialists (PS) when making decisions related to event perimeters, staging, and pre-arrival instructions for events involving hazardous materials (HAZMAT) and/or high-risk hazard (HRH) concerns.
 
 This DST applies to **ALL** Paramedic Specialists when they become aware of an event with possible HAZMAT or HRH concerns through the following situations:
-* Automatically generated CAD notification[cite: 24].
-* CAD notification by an EMCT or EMD[cite: 24].
-* Verbal notification from an EMCT, EMD, or a responding crew[cite: 24].
-* Incidental encounters while reviewing events[cite: 24].
+* Automatically generated CAD notification.
+* CAD notification by an EMCT or EMD.
+* Verbal notification from an EMCT, EMD, or a responding crew.
+* Incidental encounters while reviewing events.
 
 ---
 
@@ -23,59 +38,53 @@ This DST applies to **ALL** Paramedic Specialists when they become aware of an e
 
 ### a. Initial Identification & Action
 After identifying an event with a HAZMAT/HRH concern, the Paramedic Specialist must:
-* **Consider Risk & Perimeters:** Assess the nature of the risk and determine if a perimeter is required[cite: 24].
-  * *Existing Perimeters:* If an EMD has already placed a perimeter, review it to ensure it is clinically and operationally safe and effective[cite: 24]. The PS may leave it unchanged, increase/decrease its size, remove it, or speak with the EMD/CEMD to request changes[cite: 24].
-  * *New Perimeters:* If no perimeter exists and one is needed, the PS may generate one themselves or request the EMD/CEMD to generate one (which must be communicated in Supplemental Notes for compliance)[cite: 24].
-  * *Documentation & Communication:* If establishing or modifying a perimeter, the PS must add explanatory notes to the supplementary information in CAD *and* verbally communicate the change/generation to the EMD or CEMD to ensure crew safety redundancy[cite: 24, 25].
-* **Staging Locations:** When a perimeter is added, consider factors requiring specific staging locations (e.g., local topography, wind direction, local knowledge from crews/sources)[cite: 25]. If required, communicate staging by documenting recommendations in CAD remarks *and* verifying verbally with the crew directly or via their regional EMD on the radio[cite: 25].
-* **Specialized Resources:** Consider if specialized resources are needed to rescue, decontaminate, or treat the patient[cite: 25]. If so, contact the EMD/CEMD to discuss requirements and document recommendations in CAD supplementary info[cite: 25].
-* **Decontamination & Treatment Guidance:** Evaluate the event nature and communicate decontamination or treatment considerations to the crew via telephone conversation and/or CAD remarks[cite: 25].
-* **Hospital Early Notification:** Consider if the local hospital benefits from early notification (especially to prevent secondary contamination of staff)[cite: 25]. If contacted, document the action in CAD supplementary info[cite: 25, 26].
-* **Mandatory Timestamp:** Timestamp the CAD event with the **"Paramedic Specialist Reviewed - HAZMAT/HRH review"** timestamp during or immediately after review[cite: 26].
+* **Consider Risk & Perimeters:** Assess the nature of the risk and determine if a perimeter is required.
+  * *Existing Perimeters:* If an EMD has already placed a perimeter, review it to ensure it is clinically and operationally safe and effective. The PS may leave it unchanged, increase/decrease its size, remove it, or speak with the EMD/CEMD to request changes.
+  * *New Perimeters:* If no perimeter exists and one is needed, the PS may generate one themselves or request the EMD/CEMD to generate one (which must be communicated in Supplemental Notes for compliance).
+  * *Documentation & Communication:* If establishing or modifying a perimeter, the PS must add explanatory notes to the supplementary information in CAD *and* verbally communicate the change/generation to the EMD or CEMD to ensure crew safety redundancy.
+* **Staging Locations:** When a perimeter is added, consider factors requiring specific staging locations (e.g., local topography, wind direction, local knowledge from crews/sources). If required, communicate staging by documenting recommendations in CAD remarks *and* verifying verbally with the crew directly or via their regional EMD on the radio.
+* **Specialized Resources:** Consider if specialized resources are needed to rescue, decontaminate, or treat the patient. If so, contact the EMD/CEMD to discuss requirements and document recommendations in CAD supplementary info.
+* **Decontamination & Treatment Guidance:** Evaluate the event nature and communicate decontamination or treatment considerations to the crew via telephone conversation and/or CAD remarks.
+* **Hospital Early Notification:** Consider if the local hospital benefits from early notification (especially to prevent secondary contamination of staff). If contacted, document the action in CAD supplementary info.
+* **Mandatory Timestamp:** Timestamp the CAD event with the **"Paramedic Specialist Reviewed - HAZMAT/HRH review"** timestamp during or immediately after review.
 
 ### b. Crew Consultations
 If a crew consults with a PS regarding a patient in a HAZMAT/HRH event, the PS must:
-* Provide appropriate advice regarding safe patient contact, decontamination, clinical care, transport, and safe transfer of care[cite: 26].
-* Document provided advice on an electronic patient care record[cite: 26].
-* Consider if information needs to be relayed to the EMD/CEMD within an appropriate timeframe[cite: 26].
-* Timestamp the event with the **"Paramedic Specialist Reviewed - HAZMAT/HRH review"** timestamp[cite: 26].
-* Consider whether other responding or future crews could benefit from the advice and ensure information is shared accordingly[cite: 26].
+* Provide appropriate advice regarding safe patient contact, decontamination, clinical care, transport, and safe transfer of care.
+* Document provided advice on an electronic patient care record.
+* Consider if information needs to be relayed to the EMD/CEMD within an appropriate timeframe.
+* Timestamp the event with the **"Paramedic Specialist Reviewed - HAZMAT/HRH review"** timestamp.
+* Consider whether other responding or future crews could benefit from the advice and ensure information is shared accordingly.
 
 ### c. Hospital Inquiries
 If a hospital contacts a Paramedic Specialist for advice regarding a HAZMAT/HRH patient, the PS must:
-* Provide advice on patient decontamination and PPE as appropriate[cite: 26].
-* Consider referring hospital staff to external expert services such as the Drug and Poison Information Centre (DPIC) if outside our area of expertise[cite: 26].
-* Document provided advice on an electronic patient care record[cite: 26]:
-  * *Known BCEHS Transport:* Use the event number previously associated with that patient[cite: 26].
-  * *Unknown / Non-BCEHS Transport:* Create a unit-initiated event and generate an associated patient care record[cite: 26].
+* Provide advice on patient decontamination and PPE as appropriate.
+* Consider referring hospital staff to external expert services such as the Drug and Poison Information Centre (DPIC) if outside our area of expertise.
+* Document provided advice on an electronic patient care record:
+  * *Known BCEHS Transport:* Use the event number previously associated with that patient.
+  * *Unknown / Non-BCEHS Transport:* Create a unit-initiated event and generate an associated patient care record.
 
 ---
 
-## 3. Supporting Documents
+## Supporting Documents
 
 ### Related BCEHS Policy and Procedures
-* ProMapp Procedure: Engaging Paramedic Specialists[cite: 26]
-* ProMapp Procedure: Paramedic Specialist Action Required v4.0[cite: 26]
-* ProMapp Procedure: Paramedic Specialist Event Review Process v8.0[cite: 26]
-* BCEHS OHS 100.1: Responding to Incidents at Mine Sites[cite: 27]
-* BCEHS RISK 100: Staging for a Safe Response[cite: 27]
-* BCEHS SOG: CliniCall Support Services - Paramedic Specialist[cite: 27]
+
+[ProMapp: Engaging PS](https://ca.promapp.com/bcehs/Process/Minimode/Permalink/D8eKBRWLzxj5d6KMAC8qmY){:target="_blank .external-link}
+
+[ProMapp: PS Action Required](https://ca.promapp.com/bcehs/Process/Minimode/Permalink/HKEdvZHtDQDUpwZR9X0rst){:target="_blank .external-link}
+
+[ProMapp: PS Event Review Process](https://ca.promapp.com/bcehs/Process/Minimode/Permalink/GcBS0BMBdYzJZW5AzNritV){:target="_blank .external-link}
+
+[BCEHS OHS 100.1: Responding to Incidents at Mines](https://shop.healthcarebc.ca/phsa/BCEHS/Workplace%20Health/C-04-12-85280.pdf){:target="_blank .external-link}
+
+[BCEHS RISK 100: Staging for a Safe Response](https://shop.healthcarebc.ca/phsa/BCEHS/Guidelines/C-04-07-85279.pdf){:target="_blank .external-link}
+
+[BCEHS SOG: CliniCall Support Services - Paramedic Specialist](https://shop.healthcarebc.ca/phsa/BCEHS/Guidelines/C-04-07-85272.pdf){:target="_blank .external-link}
 
 ---
+## Review Schedule
 
-## 4. Review Schedule
-
-| Category | Details |
-| :--- | :--- |
-| **Policy Adopted** | October 22, 2026[cite: 27] |
-| **Policy Owner** | COO BCEHS[cite: 27] |
-| **Next Review Scheduled** | October 26, 2029 (Reviewed by Clinical Hub Operations Manager)[cite: 27] |
-
----
-
-## 5. Version History
-
-| Date | Update Number | Author / Title | Details |
-| :--- | :--- | :--- | :--- |
-| **August 1, 2026** | V1.0 | Lee Roberts, Manager Clinical Hub[cite: 27] | Original Document[cite: 27] |
-| **September 1, 2026** | V1.0 | Heather Olavsen, Director Clinical Hub[cite: 27] | Approved New Procedure[cite: 27] |
+| Adopted | Next Review Scheduled | Owner | Reviewer| 
+| :--- | :--- | :--- | :--- | 
+| Nov 2026 | Nov 2027 | Clinical Hub Manager | Clinical Hub PPEd |
