@@ -137,19 +137,19 @@ el operator or OCPS.
 
 | Call Sign | Role | Shift Times |
 | :--- | :--- | :--- |
-| **PS1D** | CliniCall desk | 06:00 - 18:00[cite: 22] |
-| **PS1N** | CliniCall desk | 18:00 - 06:00[cite: 22] |
-| **PS2** | CliniCall desk | 06:00 - 18:00[cite: 22] |
-| **PS3** | CliniCall desk | 14:00 - 02:00[cite: 22] |
-| **PS4** | CliniCall desk | Ad-hoc[cite: 22] |
-| **2T1** | Tango / PRU | 06:00 - 18:00[cite: 22] |
-| **2T2** | Tango / PRU | 14:00 - 02:00[cite: 22] |
-| **2T3** | Tango / PRU | 06:00 - 18:00[cite: 22] |
-| **2T4** | Tango / PRU | 14:00 - 02:00[cite: 22] |
-| **2T5** | Tango / PRU | 06:00 - 18:00[cite: 22] |
-| **2T6** | Tango / PRU | 14:00 - 02:00[cite: 22] |
-| **2T7** | Tango / PRU | 06:00 - 18:00[cite: 22] |
-| **2T8** | Tango / PRU | 14:00 - 02:00[cite: 22] |
+| **PS1D** | CliniCall desk | 06:00 - 18:00|
+| **PS1N** | CliniCall desk | 18:00 - 06:00|
+| **PS2** | CliniCall desk | 06:00 - 18:00|
+| **PS3** | CliniCall desk | 14:00 - 02:00|
+| **PS4** | CliniCall desk | Ad-hoc|
+| **2T1** | Tango / PRU | 06:00 - 18:00|
+| **2T2** | Tango / PRU | 14:00 - 02:00|
+| **2T3** | Tango / PRU | 06:00 - 18:00|
+| **2T4** | Tango / PRU | 14:00 - 02:00|
+| **2T5** | Tango / PRU | 06:00 - 18:00|
+| **2T6** | Tango / PRU | 14:00 - 02:00|
+| **2T7** | Tango / PRU | 06:00 - 18:00|
+| **2T8** | Tango / PRU | 14:00 - 02:00|
 
 ---
 
@@ -157,10 +157,10 @@ el operator or OCPS.
 
 | Category | Details |
 | :--- | :--- |
-| **Policy Adopted** | 29 April 2021[cite: 23] |
-| **Policy Owner** | BCEHS COO[cite: 23] |
-| **Last Review Scheduled** | 23 October 2026 (Reviewed by Clinical Hub Operations Manager)[cite: 23] |
-| **Next Review Scheduled** | 23 October 2029[cite: 23] |
+| **Policy Adopted** | 29 April 2021|
+| **Policy Owner** | BCEHS COO|
+| **Last Review Scheduled** | 23 October 2026 (Reviewed by Clinical Hub Operations Manager)|
+| **Next Review Scheduled** | 23 October 2029|
 
 ---
 
@@ -168,8 +168,8 @@ el operator or OCPS.
 
 | Date | Update Number | Author / Title | Details |
 | :--- | :--- | :--- | :--- |
-| **Aug 30, 2024** | V2.5 | Jason Elliott, Risk Manager[cite: 23] | Moved to BCEHS Template and published on SHOP[cite: 23] |
-| **June 18, 2024** | V2.5 | Kathy Pascuzzo, Manager Clinical Hub[cite: 23] | Updated 2022 Deployment Plan[cite: 23] |
-| **June 19, 2024** | V2.5 | Ford Smith, Director Clinical Hub[cite: 23] | Approved Updated Deployment Plan[cite: 23] |
-| **October 1, 2026** | V2.6 | Lee Roberts, Manager Clinical Hub[cite: 23] | Updated 2024 deployment plan[cite: 23] |
-| **October 23, 2026** | V2.6 | Heather Olavsen, Director Clinical Hub[cite: 23] | Approved Updated Deployment Plan[cite: 23] |
+| **Aug 30, 2024** | V2.5 | Jason Elliott, Risk Manager| Moved to BCEHS Template and published on SHOP|
+| **June 18, 2024** | V2.5 | Kathy Pascuzzo, Manager Clinical Hub| Updated 2022 Deployment Plan|
+| **June 19, 2024** | V2.5 | Ford Smith, Director Clinical Hub| Approved Updated Deployment Plan|
+| **October 1, 2026** | V2.6 | Lee Roberts, Manager Clinical Hub| Updated 2024 deployment plan|
+| **October 23, 2026** | V2.6 | Heather Olavsen, Director Clinical Hub| Approved Updated Deployment Plan|
