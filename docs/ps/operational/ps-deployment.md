@@ -22,7 +22,7 @@ keywords:
 ## Background
 The CliniCall team is a provincial resource tasked with providing frontline clinical leadership, shared decision making, and risk mitigation support to protect BCEHS' people, patients, and infrastructure province-wide.
 
-The CliniCall deployment model drives clinical excellence, safety leadership, and operational agility within BCEHS. By integrating virtual clinical oversight through CliniCall with the dynamic use of Tango, the CliniCall team provides critical support where and when it is needed most. This framework aligns deployment practices with high-acuity demand, CBRNE and HAZMAT safety, and collaborative field support ensuring optimal care delivery and crew safety province-wide
+The CliniCall deployment model drives clinical excellence, safety leadership, and operational agility within BCEHS. By integrating virtual clinical oversight through CliniCall with the dynamic use of Tango, the CliniCall team provides critical support where and when it is needed most. This framework aligns deployment practices with high-acuity demand, CBRNE and HAZMAT safety, and collaborative field support ensuring optimal care delivery and crew safety province-wide.
 
 ## Purpose
 This Decision Support Tool (DST) identifies the deployment framework for Paramedic Specialist resources, the circumstances necessitating a Paramedic Specialist response, and Paramedic Specialist dispatching.
@@ -51,10 +51,10 @@ This procedure applies to paramedics when working as Clinical Hub Paramedic Spec
   2. Complex urgent and primary care events that require advanced clinical assessment and shared decision making.
   3. Complex events that require clinical leadership in collaboration with frontline leaders (On-Call Paramedic Supervisors OCPS) e.g., multi-patient or mass casualty events.
 
-* ii. Paramedic Specialists are tasked as Safety Officers [per Incident Command System Structure](https://icscanada.ca/wp-content/uploads/2023/11/ICS-OPS-Description2012_2.pdf){:target="_blank .external-link} for chemical, biological, radiological, nuclear, and explosive (CBRNE), and High-Risk Hazard (HRH) events.
+* ii. Paramedic Specialists are tasked as Safety Officers [per Incident Command System Structure](https://icscanada.ca/wp-content/uploads/2023/11/ICS-OPS-Description2012_2.pdf){:target="_blank .external-link"} for chemical, biological, radiological, nuclear, and explosive (CBRNE), and High-Risk Hazard (HRH) events.
 
   1. When dispatched in this capacity, the intent is to assume responsibility for safety on scene.
-  2. In this role, the Paramedic Specialist hold final decisions on safety for staging, entry into scene, and decontamination of patients and equipment. [See - BCEHS DST for Paramedic Specialist HAZMAT and HRH Review](https://shop.healthcarebc.ca/phsa/BCEHS/Clinical%20Operations/C-04-12-85410.pdf){:target="_blank .external-link}
+  2. In this role, the Paramedic Specialist hold final decisions on safety for staging, entry into scene, and decontamination of patients and equipment. [See - BCEHS DST for Paramedic Specialist HAZMAT and HRH Review](https://shop.healthcarebc.ca/phsa/BCEHS/Clinical%20Operations/C-04-12-85410.pdf){:target="_blank .external-link"}
   3. CliniCall is responsible for reviewing and recommending responses in this capacity.
   4. A Tango (PS-PRU) unit may be diverted off an event prior to arrival at the direction of CliniCall for all events captured above.
 
@@ -93,7 +93,7 @@ This procedure applies to paramedics when working as Clinical Hub Paramedic Spec
   1. When crossing channel boundaries, the Paramedic Specialists must contact the appropriate channel operators.
   2. If crossing Dispatch Operations Centre boundaries, the Paramedic Specialist must coordinate with the appropriate CEMD(s) and consider advising Provincial Operations Manager (POM).
 
-*v. If a large-scale event occurs, either in Metro Vancouver or provincially (ie: Tumbler Ridge, Lapu Lapu), crews can respond from CliniCall to PRU; or PRU to CliniCall to provide support for the team. This must be done in team collaboration to ensure resources are deployed appropriately.
+* v. If a large-scale event occurs, either in Metro Vancouver or provincially (ie: Tumbler Ridge, Lapu Lapu), crews can respond from CliniCall to PRU; or PRU to CliniCall to provide support for the team. This must be done in team collaboration to ensure resources are deployed appropriately.
 
 ### d. Paramedic Specialist Unit Status
 
@@ -108,7 +108,8 @@ This procedure applies to paramedics when working as Clinical Hub Paramedic Spec
   3. The remaining Paramedic Specialist Response units can be manually changed to TNG mode when system pressures or high-risk events including mass gatherings, protests, holiday celebrations, etc. are occurring, OR
   4. For a dedicated response to specific Paramedic Specialist duties as listed in section 2(b) 1-5, as determined in collaboration with CliniCall.
 
-!!! warning In TNG mode, the PS resource does not present in Recommend Unit to ensure availability for TNG-specific events. Members must remain extra vigilant in scanning queues and informing dispatch of appropriate responses (e.g., nearby cardiac arrest).
+!!! warning "Tango Unit Availability Notice"
+    In TNG mode, the PS resource does not present in Recommend Unit to ensure availability for TNG-specific events. Members must remain extra vigilant in scanning queues and informing dispatch of appropriate responses (e.g., nearby cardiac arrest).
 
 * iii. When appropriate, and in consultation with the PS resource and CliniCall, the Channel Operator must change the Paramedic Specialist deployment status from PRU to TNG.
 
@@ -124,43 +125,35 @@ This procedure applies to paramedics when working as Clinical Hub Paramedic Spec
 
 <u>CRM indicates 'TNG' or 'Consider TANGO':</u> 
 
-  2. Paramedic Specialist response is indicated within a 45-minute geographical response window (TNG Mode).
-
-    • This response may be exceeded by the CEMD or stood down at the discretion of CliniCall.
-
-    • Any decision not to send a resource must be clearly documented by CliniCall.
+  * Paramedic Specialist response is indicated within a 45-minute geographical response window (TNG Mode).
+  * This response may be exceeded by the CEMD or stood down at the discretion of CliniCall.
+  * Any decision not to send a resource must be clearly documented by CliniCall.
 
 <u>CRM indicates PURPLE (non-TNG):</u> 
-
-  3. A Paramedic Specialist in PRU mode must be dispatched to all PURPLE events when they are the closest advanced care resource.
-
-  4. A Paramedic Specialist in TNG mode must be dispatched to CRM PURPLE events when they are the closest advanced care resource.
+  * A Paramedic Specialist in PRU mode must be dispatched to all PURPLE events when they are the closest advanced care resource.
+  * A Paramedic Specialist in TNG mode must be dispatched to CRM PURPLE events when they are the closest advanced care resource.
 
 <u>CRM indicates RED (non-TNG):</u> 
-
-  5. A Paramedic Specialist in PRU mode must be dispatched to all RED calls when they are the closest advanced care resource.
-
-  6. A Paramedic Specialist in TNG mode must be dispatched to CRM RED events in consultation with the PS on-car and CliniCall based on operational need.
+  * A Paramedic Specialist in PRU mode must be dispatched to all RED calls when they are the closest advanced care resource.
+  * A Paramedic Specialist in TNG mode must be dispatched to CRM RED events in consultation with the PS on-car and CliniCall based on operational need.
 
 <u>CRM indicates ORANGE (non-TNG):</u> 
-
-  7. A Paramedic Specialist in PRU mode must be dispatched as per current PRU dispatching guidelines.
-
-  8. A Paramedic Specialist in TNG mode must not be dispatched on CRM ORANGE events unless there are extenuating circumstances identified in consultation with CliniCall.
+  * A Paramedic Specialist in PRU mode must be dispatched as per current PRU dispatching guidelines.
+  * A Paramedic Specialist in TNG mode must not be dispatched on CRM ORANGE events unless there are extenuating circumstances identified in consultation with CliniCall.
 
 * iii. Additional calls requiring a Paramedic Specialist response may be identified by CliniCall, Dispatch Supervisor, CEMD, Dispatcher or Paramedic crew irrespective of CRM or MPDS. The unit should be assigned when determined to be appropriate by CliniCall, in discussion with the Charge EMD.
 
-!!! warning "Aligning with the Lone Responder safety plan, the Paramedic Specialist must be dispatched concurrently with a PCP crew Code 3, or Fire Department if unavailable."
+!!! warning "Lone Responder Safety Protocol"
+    Aligning with the Lone Responder safety plan, the Paramedic Specialist must be dispatched concurrently with a PCP crew Code 3, or Fire Department if unavailable.
 
 * iv. Where conflict arises with the CRM or when otherwise determined necessary, CliniCall must coordinate with the CEMD to determine Paramedic Specialist deployment on a call-by-call basis.
 
   1. This includes those events requiring a Paramedic Specialist as an additional layer or resource but not captured by the CRM, as well as ‘Paramedic Specialist Initiated Events.’
-
   2. CliniCall must ensure they clearly document these instances.
-
   3. The Charge Dispatcher must coordinate the operational and dispatching implications with the respective channel operator.
 
-!!! note A Paramedic Specialist may also request to be assigned to a call through a request to their channel operator if they deem that a call may be appropriate for PS deployment.
+!!! note "Discretionary Assignment"
+    A Paramedic Specialist may also request to be assigned to a call through a request to their channel operator if they deem that a call may be appropriate for PS deployment.
 
 
 ### f. Shift Times
@@ -169,31 +162,31 @@ This procedure applies to paramedics when working as Clinical Hub Paramedic Spec
 
 * ii. Out of Service-Admin requires a reasonable explanation and must be requested through your channel operator or OCPS depending on the ask.
 
-* iii. Tango members may return to Station 287 (Virtual Way) 30 minutes prior to shift end but must stay available by portable radio until completion of shift
+* iii. Tango members may return to Station 287 (Virtual Way) 30 minutes prior to shift end but must stay available by portable radio until completion of shift.
 
 * iv. The expectation of the dynamic deployment model is that meal breaks and restocking shall be completed at the nearest ACP station, unless extenuating circumstances arise (ie: personal items required, soiled uniform).
 
 
 | Call Sign | Role | Shift Times |
 | :--- | :--- | :--- |
-| **PS1D** | CliniCall desk | 06:00 - 18:00|
-| **PS1N** | CliniCall desk | 18:00 - 06:00|
-| **PS2** | CliniCall desk | 06:00 - 18:00|
-| **PS3** | CliniCall desk | 14:00 - 02:00|
-| **PS4** | CliniCall desk | Ad-hoc|
-| **2T1** | Tango / PRU | 06:00 - 18:00|
-| **2T2** | Tango / PRU | 14:00 - 02:00|
-| **2T3** | Tango / PRU | 06:00 - 18:00|
-| **2T4** | Tango / PRU | 14:00 - 02:00|
-| **2T5** | Tango / PRU | 06:00 - 18:00|
-| **2T6** | Tango / PRU | 14:00 - 02:00|
-| **2T7** | Tango / PRU | 06:00 - 18:00|
-| **2T8** | Tango / PRU | 14:00 - 02:00|
+| **PS1D** | CliniCall desk | 06:00 - 18:00 |
+| **PS1N** | CliniCall desk | 18:00 - 06:00 |
+| **PS2** | CliniCall desk | 06:00 - 18:00 |
+| **PS3** | CliniCall desk | 14:00 - 02:00 |
+| **PS4** | CliniCall desk | Ad-hoc |
+| **2T1** | Tango / PRU | 06:00 - 18:00 |
+| **2T2** | Tango / PRU | 14:00 - 02:00 |
+| **2T3** | Tango / PRU | 06:00 - 18:00 |
+| **2T4** | Tango / PRU | 14:00 - 02:00 |
+| **2T5** | Tango / PRU | 06:00 - 18:00 |
+| **2T6** | Tango / PRU | 14:00 - 02:00 |
+| **2T7** | Tango / PRU | 06:00 - 18:00 |
+| **2T8** | Tango / PRU | 14:00 - 02:00 |
 
 ---
 
 ### Review Schedule
 
-| Adopted | Next Review Scheduled | Owner | Reviewer| 
+| Adopted | Next Review Scheduled | Owner | Reviewer | 
 | :--- | :--- | :--- | :--- | 
 | Nov 2026 | Nov 2027 | BCEHS COO | Clinical Hub Operations Manager |
