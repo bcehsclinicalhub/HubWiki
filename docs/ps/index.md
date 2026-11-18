@@ -5,6 +5,13 @@
 
 ---
 
+## ⚡ Quick Links
+!!! info "Quick Navigation"
+    * [HazMat Tracking Tool](operational/CBRNE-Call-Tracker.html)
+    * [High Threat Pathogen Tool](clinical/htp-tool/)
+    * [IDCT Activation](clinical/htp-idct)
+---
+
 ## 🚑 Categories
 
 | Section | Description | Link |

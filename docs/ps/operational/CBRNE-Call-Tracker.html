@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BCEHS Paramedic Specialist – CBRNE / Haz-Mat Call Tracker</title>
+<style>
+  :root{
+    --navy:#0b2545; --blue:#13315c; --accent:#c8102e; --bg:#eef2f6; --card:#fff;
+    --line:#d5dde6; --text:#1b2330; --muted:#5b6778; --ok:#1d7a46;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:15px}
+  header{background:var(--navy);color:#fff;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:4px solid var(--accent)}
+  header h1{margin:0;font-size:20px;letter-spacing:.3px}
+  header .sub{font-size:13px;opacity:.8}
+  nav{display:flex;gap:4px;background:var(--blue);padding:0 24px}
+  nav button{background:none;border:none;color:#cfd9e6;padding:12px 18px;font-size:15px;cursor:pointer;border-bottom:3px solid transparent}
+  nav button.active{color:#fff;border-bottom-color:var(--accent);font-weight:600}
+  main{max-width:1200px;margin:20px auto;padding:0 20px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:20px 22px;margin-bottom:18px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+  .card h2{margin:0 0 14px;font-size:17px;color:var(--navy)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px 18px}
+  label{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:5px;text-transform:uppercase;letter-spacing:.3px}
+  input,select,textarea{width:100%;padding:9px 10px;border:1px solid #b9c4d1;border-radius:5px;font-size:15px;font-family:inherit;background:#fff}
+  input:focus,select:focus,textarea:focus{outline:2px solid #4a7fc1;border-color:#4a7fc1}
+  textarea{min-height:70px;resize:vertical}
+  .checks{display:flex;flex-wrap:wrap;gap:8px 18px;padding:6px 0}
+  .checks label{display:flex;align-items:center;gap:7px;text-transform:none;font-size:15px;font-weight:500;color:var(--text);letter-spacing:0;margin:0;cursor:pointer}
+  .checks input{width:18px;height:18px}
+  .btn{background:var(--navy);color:#fff;border:none;border-radius:5px;padding:10px 18px;font-size:15px;cursor:pointer;font-weight:600}
+  .btn:hover{background:var(--blue)}
+  .btn.red{background:var(--accent)} .btn.grey{background:#6b7787} .btn.green{background:var(--ok)}
+  .btn.sm{padding:5px 10px;font-size:13px}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .span2{grid-column:span 2} .span-all{grid-column:1/-1}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th,td{padding:8px 9px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  th{background:#f3f6f9;color:var(--navy);font-size:12px;text-transform:uppercase;letter-spacing:.3px;position:sticky;top:0}
+  tr:hover td{background:#f8fafc}
+  .toast{position:fixed;bottom:24px;right:24px;background:var(--ok);color:#fff;padding:12px 18px;border-radius:6px;font-weight:600;display:none;box-shadow:0 4px 12px rgba(0,0,0,.2)}
+  .note{font-size:13px;color:var(--muted)}
+  .warn{background:#fff4e5;border:1px solid #f0c27b;color:#7a4b00;padding:9px 12px;border-radius:5px;font-size:13px;margin-bottom:14px}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+  .stat h3{margin:0 0 8px;font-size:14px;color:var(--navy);text-transform:uppercase;letter-spacing:.3px;border-bottom:2px solid var(--accent);padding-bottom:4px}
+  .bar{display:flex;align-items:center;gap:8px;margin:5px 0;font-size:14px}
+  .bar .lbl{width:150px;flex-shrink:0}
+  .bar .trk{flex:1;background:#e7ecf2;border-radius:3px;height:14px;overflow:hidden}
+  .bar .fill{background:var(--blue);height:100%}
+  .bar .n{width:60px;text-align:right;font-variant-numeric:tabular-nums}
+  .big{font-size:38px;font-weight:700;color:var(--navy)}
+  .hidden{display:none}
+  .fu{border-left:3px solid var(--accent);background:#f8f9fb;padding:4px 8px;margin-top:5px;font-size:13px}
+  .pill{display:inline-block;background:#e7ecf2;border-radius:10px;padding:1px 8px;margin:1px;font-size:12px}
+  #reportArea .rpt-head{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid var(--navy);padding-bottom:8px;margin-bottom:14px}
+  @media print{
+    header,nav,.noprint,.toast{display:none!important}
+    body{background:#fff;font-size:12px}
+    main{margin:0;max-width:none;padding:0}
+    .card{border:none;box-shadow:none;padding:0}
+    .section:not(#tab-report){display:none!important}
+    th{position:static}
+    .stat{break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>CBRNE / Haz-Mat Call Tracker</h1>
+    <div class="sub">BCEHS Paramedic Specialist Desk</div>
+  </div>
+  <div class="sub" id="clock"></div>
+</header>
+
+<nav>
+  <button class="active" data-tab="entry">New Call</button>
+  <button data-tab="log">Call Log</button>
+  <button data-tab="report">Monthly Report</button>
+  <button data-tab="settings">Settings &amp; Backup</button>
+</nav>
+
+<main>
+
+<!-- ================= NEW CALL ================= -->
+<section id="tab-entry" class="section">
+  <div class="card">
+    <h2 id="formTitle">Log a New Call</h2>
+    <div class="warn">Do not enter patient names or personal health information. Use the incident number only.</div>
+    <form id="callForm" autocomplete="off">
+      <input type="hidden" id="editId">
+      <div class="grid">
+        <div><label for="fDate">Date of Incident</label><input type="date" id="fDate" required></div>
+        <div><label for="fIncident">Incident Number</label><input type="text" id="fIncident" required placeholder="e.g. 26-123456"></div>
+        <div><label for="fTime">Time of Call from Crew</label>
+          <div class="row" style="flex-wrap:nowrap"><input type="time" id="fTime" required><button type="button" class="btn sm grey" id="nowBtn">Now</button></div></div>
+        <div><label for="fSpecialist">Specialist Taking Call</label><select id="fSpecialist" required></select></div>
+
+        <div><label for="fType">Nature of Call – Type</label>
+          <select id="fType" required>
+            <option value="">— Select —</option>
+            <option>Transportation</option><option>Residential</option><option>Industry</option>
+          </select></div>
+        <div><label for="fHazard">Hazard</label>
+          <select id="fHazard" required>
+            <option value="">— Select —</option>
+            <option>Chemical</option><option>Biological</option><option>Radioactive</option><option>Nuclear</option><option>Explosive</option>
+          </select></div>
+        <div><label for="fIntent">Intent</label>
+          <select id="fIntent" required>
+            <option value="">— Select —</option>
+            <option>Accidental</option><option>Self-harm</option><option>Intentional</option>
+          </select></div>
+        <div><label for="fCanutec">CANUTEC Contacted</label>
+          <select id="fCanutec" required>
+            <option value="">— Select —</option><option>Yes</option><option>No</option>
+          </select></div>
+        <div><label for="fOncar">On Car Specialist Response</label>
+          <select id="fOncar" required>
+            <option value="">— Select —</option><option>Yes</option><option>No</option>
+          </select></div>
+
+        <div class="span-all"><label>Advice Given (select all that apply)</label>
+          <div class="checks" id="adviceChecks"></div></div>
+
+        <div class="span-all"><label for="fNotes">Product / UN Number (optional)</label>
+          <input type="text" id="fNotes" placeholder="e.g. Chlorine, UN1017"></div>
+
+        <div class="span-all"><label for="fComments">Comments</label>
+          <textarea id="fComments" style="min-height:110px" placeholder="Details of the call, advice given, crew concerns, follow-up needed…"></textarea></div>
+        <div class="span-all hidden" id="followWrap"><label>Follow-up Comments</label><div id="followList"></div></div>
+      </div>
+      <div class="row" style="margin-top:16px">
+        <button type="submit" class="btn" id="saveBtn">Save Call</button>
+        <button type="button" class="btn grey" id="clearBtn">Clear</button>
+        <button type="button" class="btn grey hidden" id="cancelEditBtn">Cancel Edit</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2>Today's Calls</h2>
+    <div id="todayList" class="note">No calls logged today.</div>
+  </div>
+</section>
+
+<!-- ================= LOG ================= -->
+<section id="tab-log" class="section hidden">
+  <div class="card">
+    <h2>Call Log</h2>
+    <div class="row noprint" style="margin-bottom:12px">
+      <div><label for="logMonth">Month</label><input type="month" id="logMonth"></div>
+      <div style="flex:1;min-width:200px"><label for="logSearch">Search</label><input type="text" id="logSearch" placeholder="Incident #, specialist, notes…"></div>
+      <div style="align-self:flex-end"><button class="btn grey" id="logAllBtn">Show All</button></div>
+      <div style="align-self:flex-end"><button class="btn green" id="csvBtn">Export CSV</button></div>
+    </div>
+    <div style="overflow:auto;max-height:65vh"><table id="logTable"></table></div>
+  </div>
+</section>
+
+<!-- ================= REPORT ================= -->
+<section id="tab-report" class="section hidden">
+  <div class="card noprint">
+    <h2>Monthly Report</h2>
+    <div class="row">
+      <div><label for="rptMonth">Report Month</label><input type="month" id="rptMonth"></div>
+      <div style="align-self:flex-end" class="row">
+        <button class="btn" id="genBtn">Generate</button>
+        <button class="btn green" id="printBtn">Print / Save as PDF</button>
+        <button class="btn red" id="emailBtn">Email to Managers</button>
+        <button class="btn grey" id="rptCsvBtn">Month CSV</button>
+      </div>
+    </div>
+    <p class="note" style="margin-bottom:0">To send: click <b>Print / Save as PDF</b>, save the PDF, then click <b>Email to Managers</b>. Your email program opens with the managers, subject and summary filled in. Attach the PDF and send.</p>
+  </div>
+  <div class="card" id="reportArea"><p class="note">Select a month and click Generate.</p></div>
+</section>
+
+<!-- ================= SETTINGS ================= -->
+<section id="tab-settings" class="section hidden">
+  <div class="card">
+    <h2>Paramedic Specialists</h2>
+    <p class="note">These names appear in the "Specialist Taking Call" drop-down. Enter one name per line.</p>
+    <textarea id="setSpecialists" style="min-height:130px"></textarea>
+  </div>
+  <div class="card">
+    <h2>Report Recipients (Designated Managers)</h2>
+    <p class="note">Enter email addresses separated by commas or one per line.</p>
+    <textarea id="setEmails"></textarea>
+    <div class="grid" style="margin-top:12px">
+      <div><label for="setCc">CC (optional)</label><input type="text" id="setCc"></div>
+      <div><label for="setOrg">Report Header Title</label><input type="text" id="setOrg"></div>
+    </div>
+    <div style="margin-top:14px"><button class="btn" id="saveSettingsBtn">Save Settings</button></div>
+  </div>
+  <div class="card">
+    <h2>Backup &amp; Restore</h2>
+    <p class="note">Data is saved in this computer's browser. Download a backup regularly (for example, at month end) and keep it on a shared drive. If you move to a different computer or browser, use Restore to bring the data with you.</p>
+    <div class="row">
+      <button class="btn green" id="backupBtn">Download Backup</button>
+      <label class="btn grey" style="margin:0;text-transform:none;letter-spacing:0;color:#fff;font-size:15px">Restore from Backup<input type="file" id="restoreFile" accept=".json" class="hidden"></label>
+      <span class="note" id="countNote"></span>
+    </div>
+  </div>
+</section>
+
+</main>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+const ADVICE = ["Decon","Scene Safety","Chemical Properties","On-Scene Treatment Recommendations"];
+const TYPES = ["Transportation","Residential","Industry"];
+const HAZARDS = ["Chemical","Biological","Radioactive","Nuclear","Explosive"];
+const INTENTS = ["Accidental","Self-harm","Intentional"];
+const KEY_CALLS = "bcehs_cbrne_calls_v1", KEY_SET = "bcehs_cbrne_settings_v1";
+
+const $ = id => document.getElementById(id);
+const store = {
+  get(k,d){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; }catch(e){ return d; } },
+  set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); return true; }catch(e){ alert("Could not save data: " + e.message); return false; } }
+};
+const DEFAULT_SPECS = ["299PS1D","299PS2D","299PS3","299PS1N"];
+let calls = store.get(KEY_CALLS, []);
+let settings = store.get(KEY_SET, {
+  specialists:DEFAULT_SPECS.slice(),
+  emails:"", cc:"", org:"BCEHS Paramedic Specialist – CBRNE / Haz-Mat Calls"
+});
+
+if(settings.specialists.join("|")==="Paramedic Specialist 1|Paramedic Specialist 2"){ settings.specialists=DEFAULT_SPECS.slice(); store.set(KEY_SET,settings); }
+const pad = n => String(n).padStart(2,"0");
+const todayStr = () => { const d=new Date(); return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; };
+const nowTime = () => { const d=new Date(); return `${pad(d.getHours())}:${pad(d.getMinutes())}`; };
+const thisMonth = () => todayStr().slice(0,7);
+const monthName = m => { const [y,mo]=m.split("-"); return new Date(+y, +mo-1, 1).toLocaleString("en-CA",{month:"long",year:"numeric"}); };
+const esc = s => String(s??"").replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function toast(msg){ const t=$("toast"); t.textContent=msg; t.style.display="block"; clearTimeout(t._h); t._h=setTimeout(()=>t.style.display="none",2200); }
+function saveCalls(){ store.set(KEY_CALLS, calls); updateCount(); }
+function updateCount(){ $("countNote").textContent = `${calls.length} call(s) stored on this computer.`; }
+
+// clock
+setInterval(()=>{ $("clock").textContent = new Date().toLocaleString("en-CA",{dateStyle:"full",timeStyle:"short"}); },1000);
+
+// tabs
+document.querySelectorAll("nav button").forEach(b=>b.addEventListener("click",()=>showTab(b.dataset.tab)));
+function showTab(t){
+  document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active", b.dataset.tab===t));
+  document.querySelectorAll(".section").forEach(s=>s.classList.toggle("hidden", s.id!=="tab-"+t));
+  if(t==="log") renderLog();
+  if(t==="report") renderReport();
+}
+
+// form setup
+$("adviceChecks").innerHTML = ADVICE.map((a,i)=>`<label><input type="checkbox" value="${a}" id="adv${i}"> ${a}</label>`).join("");
+function fillSpecialists(sel){
+  const s=$("fSpecialist");
+  s.innerHTML = `<option value="">— Select —</option>` + settings.specialists.map(n=>`<option>${esc(n)}</option>`).join("");
+  if(sel){ if(!settings.specialists.includes(sel)) s.insertAdjacentHTML("beforeend",`<option>${esc(sel)}</option>`); s.value=sel; }
+}
+function resetForm(){
+  const keepSpec = $("fSpecialist").value;
+  $("callForm").reset(); $("editId").value="";
+  $("fDate").value = todayStr(); $("fTime").value = nowTime();
+  fillSpecialists(keepSpec);
+  $("followWrap").classList.add("hidden"); $("followList").innerHTML="";
+  $("formTitle").textContent="Log a New Call"; $("saveBtn").textContent="Save Call";
+  $("cancelEditBtn").classList.add("hidden");
+}
+$("nowBtn").onclick = ()=> $("fTime").value = nowTime();
+$("clearBtn").onclick = resetForm;
+$("cancelEditBtn").onclick = resetForm;
+
+$("callForm").addEventListener("submit", e=>{
+  e.preventDefault();
+  const advice = ADVICE.filter((a,i)=>$("adv"+i).checked);
+  const rec = {
+    id: $("editId").value || ("c"+Date.now()+Math.random().toString(36).slice(2,6)),
+    date:$("fDate").value, incident:$("fIncident").value.trim(), time:$("fTime").value,
+    type:$("fType").value, hazard:$("fHazard").value, intent:$("fIntent").value,
+    canutec:$("fCanutec").value, oncar:$("fOncar").value, advice, specialist:$("fSpecialist").value,
+    notes:$("fNotes").value.trim(), comments:$("fComments").value.trim(),
+    followups:[], logged:new Date().toISOString()
+  };
+  const dup = calls.find(c=>c.incident.toLowerCase()===rec.incident.toLowerCase() && c.id!==rec.id);
+  if(dup && !confirm(`Incident ${rec.incident} is already logged (${dup.date} ${dup.time}). Save another entry anyway?`)) return;
+  const idx = calls.findIndex(c=>c.id===rec.id);
+  if(idx>=0){ rec.logged = calls[idx].logged; rec.followups = calls[idx].followups||[]; calls[idx]=rec; toast("Call updated"); }
+  else { calls.push(rec); toast("Call saved"); }
+  saveCalls(); resetForm(); renderToday();
+});
+
+function editCall(id){
+  const c = calls.find(x=>x.id===id); if(!c) return;
+  showTab("entry");
+  $("editId").value=c.id; $("fDate").value=c.date; $("fIncident").value=c.incident; $("fTime").value=c.time;
+  $("fType").value=c.type; $("fHazard").value=c.hazard; $("fIntent").value=c.intent; $("fCanutec").value=c.canutec; $("fOncar").value=c.oncar||"";
+  fillSpecialists(c.specialist);
+  ADVICE.forEach((a,i)=>$("adv"+i).checked = c.advice.includes(a));
+  $("fNotes").value=c.notes||""; $("fComments").value=c.comments||"";
+  const fu=c.followups||[];
+  $("followWrap").classList.toggle("hidden", !fu.length);
+  $("followList").innerHTML = fu.map(f=>`<div class="fu"><span class="note">${esc(f.ts)} – ${esc(f.by)}</span><br>${esc(f.text)}</div>`).join("");
+  $("formTitle").textContent="Edit Call – "+c.incident; $("saveBtn").textContent="Update Call";
+  $("cancelEditBtn").classList.remove("hidden");
+  window.scrollTo(0,0);
+}
+function deleteCall(id){
+  const c = calls.find(x=>x.id===id); if(!c) return;
+  if(!confirm(`Delete incident ${c.incident} (${c.date})? This cannot be undone.`)) return;
+  calls = calls.filter(x=>x.id!==id); saveCalls(); renderLog(); renderToday(); toast("Call deleted");
+}
+function addFollowup(id){
+  const c = calls.find(x=>x.id===id); if(!c) return;
+  const text = prompt(`Add a follow-up comment to incident ${c.incident}:`); if(!text || !text.trim()) return;
+  const by = prompt("Your name (specialist):", $("fSpecialist").value || settings.specialists[0] || "") || "";
+  c.followups = c.followups || [];
+  const d=new Date();
+  c.followups.push({ts:`${todayStr()} ${pad(d.getHours())}:${pad(d.getMinutes())}`, by:by.trim(), text:text.trim()});
+  saveCalls(); renderLog(); renderToday(); toast("Comment added");
+}
+window._edit = editCall; window._del = deleteCall; window._fu = addFollowup;
+function commentsHTML(c){
+  let h = c.comments ? `<div>${esc(c.comments).replace(/\n/g,"<br>")}</div>` : "";
+  (c.followups||[]).forEach(f=>{ h += `<div class="fu"><span class="note">${esc(f.ts)}${f.by?" – "+esc(f.by):""}</span><br>${esc(f.text)}</div>`; });
+  return h || "—";
+}
+
+const sortCalls = arr => arr.slice().sort((a,b)=> (b.date+b.time).localeCompare(a.date+a.time));
+function rowsHTML(list, actions){
+  if(!list.length) return `<tr><td class="note">No calls found.</td></tr>`;
+  return `<thead><tr><th>Date</th><th>Time</th><th>Incident #</th><th>Type</th><th>Hazard</th><th>Intent</th><th>CANUTEC</th><th>On Car PS</th><th>Advice Given</th><th>Specialist</th><th>Product / UN</th><th style="min-width:220px">Comments</th>${actions?'<th class="noprint"></th>':''}</tr></thead><tbody>` +
+    list.map(c=>`<tr><td>${esc(c.date)}</td><td>${esc(c.time)}</td><td><b>${esc(c.incident)}</b></td><td>${esc(c.type)}</td><td>${esc(c.hazard)}</td><td>${esc(c.intent)}</td><td>${esc(c.canutec)}</td><td>${esc(c.oncar||"—")}</td><td>${c.advice.map(a=>`<span class="pill">${esc(a)}</span>`).join(" ")||"—"}</td><td>${esc(c.specialist)}</td><td>${esc(c.notes)}</td><td>${commentsHTML(c)}</td>${actions?`<td class="noprint" style="white-space:nowrap"><button class="btn sm green" onclick="_fu('${c.id}')">+ Comment</button> <button class="btn sm grey" onclick="_edit('${c.id}')">Edit</button> <button class="btn sm red" onclick="_del('${c.id}')">Del</button></td>`:''}</tr>`).join("") + `</tbody>`;
+}
+function renderToday(){
+  const t = sortCalls(calls.filter(c=>c.date===todayStr()));
+  $("todayList").innerHTML = t.length ? `<div style="overflow:auto"><table>${rowsHTML(t,true)}</table></div>` : `<span class="note">No calls logged today.</span>`;
+}
+
+// log
+let logShowAll=false;
+$("logMonth").value = thisMonth();
+$("logMonth").oninput = ()=>{ logShowAll=false; renderLog(); };
+$("logSearch").oninput = renderLog;
+$("logAllBtn").onclick = ()=>{ logShowAll=true; renderLog(); };
+function logFiltered(){
+  const q = $("logSearch").value.toLowerCase().trim(), m=$("logMonth").value;
+  return sortCalls(calls.filter(c=>(logShowAll||!m||c.date.startsWith(m)) && (!q || JSON.stringify(c).toLowerCase().includes(q))));
+}
+function renderLog(){ $("logTable").innerHTML = rowsHTML(logFiltered(), true); }
+
+// CSV
+function toCSV(list){
+  const h=["Date","Time of Call","Incident Number","Type","Hazard","Intent","CANUTEC Contacted","On Car Specialist Response","Advice Given","Specialist","Product / UN Number","Comments","Follow-up Comments"];
+  const q=v=>`"${String(v??"").replace(/"/g,'""')}"`;
+  return [h.join(",")].concat(list.map(c=>[c.date,c.time,c.incident,c.type,c.hazard,c.intent,c.canutec,c.oncar||"",c.advice.join("; "),c.specialist,c.notes,c.comments,(c.followups||[]).map(f=>`[${f.ts}${f.by?" "+f.by:""}] ${f.text}`).join(" | ")].map(q).join(","))).join("\r\n");
+}
+function download(name, content, mime){
+  const blob = new Blob([content],{type:mime}); const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob); a.download=name; document.body.appendChild(a); a.click();
+  setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove();},500);
+}
+$("csvBtn").onclick = ()=> download(`CBRNE_Calls_${logShowAll?"All":$("logMonth").value}.csv`, "﻿"+toCSV(logFiltered()), "text/csv");
+
+// report
+$("rptMonth").value = thisMonth();
+$("rptMonth").oninput = renderReport;
+$("genBtn").onclick = renderReport;
+const monthCalls = m => calls.filter(c=>c.date.startsWith(m)).sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
+function tally(list, key, cats){
+  const o={}; cats.forEach(c=>o[c]=0);
+  list.forEach(c=>{ const vals = Array.isArray(c[key])?c[key]:[c[key]]; vals.forEach(v=>{ if(v) o[v]=(o[v]||0)+1; }); });
+  return o;
+}
+function bars(title, obj, total){
+  return `<div class="stat"><h3>${title}</h3>` + Object.entries(obj).map(([k,v])=>{
+    const pct = total? Math.round(v/total*100):0;
+    return `<div class="bar"><span class="lbl">${esc(k)}</span><span class="trk"><span class="fill" style="width:${pct}%;display:block"></span></span><span class="n">${v} (${pct}%)</span></div>`;
+  }).join("") + `</div>`;
+}
+function summaryData(m){
+  const list = monthCalls(m), n=list.length;
+  const specs = [...new Set(settings.specialists.concat(list.map(c=>c.specialist)))].filter(Boolean);
+  return { list, n,
+    type:tally(list,"type",TYPES), hazard:tally(list,"hazard",HAZARDS), intent:tally(list,"intent",INTENTS),
+    canutec:tally(list,"canutec",["Yes","No"]), oncar:tally(list,"oncar",["Yes","No"]), advice:tally(list,"advice",ADVICE),
+    spec:Object.fromEntries(Object.entries(tally(list,"specialist",specs)).filter(([k,v])=>v>0)) };
+}
+function renderReport(){
+  const m=$("rptMonth").value; if(!m) return;
+  const s=summaryData(m);
+  $("reportArea").innerHTML = `
+    <div class="rpt-head">
+      <div><div style="font-size:20px;font-weight:700;color:var(--navy)">${esc(settings.org)}</div>
+      <div style="font-size:16px">Monthly Summary – ${monthName(m)}</div></div>
+      <div class="note">Generated ${new Date().toLocaleString("en-CA")}</div>
+    </div>
+    <div class="row" style="gap:40px;margin-bottom:16px">
+      <div><div class="note">TOTAL CALLS</div><div class="big">${s.n}</div></div>
+      <div><div class="note">CANUTEC CONTACTED</div><div class="big">${s.canutec.Yes}</div></div>
+      <div><div class="note">ON CAR PS RESPONSE</div><div class="big">${s.oncar.Yes}</div></div>
+      <div><div class="note">INTENTIONAL / SELF-HARM</div><div class="big">${s.intent.Intentional + s.intent["Self-harm"]}</div></div>
+    </div>
+    ${s.n ? `<div class="stats">
+      ${bars("Type of Call", s.type, s.n)}
+      ${bars("Hazard (CBRNE)", s.hazard, s.n)}
+      ${bars("Intent", s.intent, s.n)}
+      ${bars("CANUTEC Contacted", s.canutec, s.n)}
+      ${bars("On Car Specialist Response", s.oncar, s.n)}
+      ${bars("Advice Given*", s.advice, s.n)}
+      ${bars("Calls by Specialist", s.spec, s.n)}
+    </div>
+    <p class="note">*More than one type of advice can be recorded per call, so percentages may add up to more than 100%.</p>
+    <h3 style="color:var(--navy);margin-top:22px;border-bottom:2px solid var(--accent);padding-bottom:4px">Call Detail</h3>
+    <table>${rowsHTML(s.list,false)}</table>` : `<p class="note">No calls were recorded for this month.</p>`}`;
+}
+$("printBtn").onclick = ()=>{ renderReport(); setTimeout(()=>window.print(),100); };
+$("rptCsvBtn").onclick = ()=>{ const m=$("rptMonth").value; download(`CBRNE_Calls_${m}.csv`, "﻿"+toCSV(monthCalls(m)), "text/csv"); };
+$("emailBtn").onclick = ()=>{
+  const m=$("rptMonth").value, s=summaryData(m);
+  const to = settings.emails.split(/[\s,;]+/).filter(Boolean).join(",");
+  if(!to){ alert("No manager emails are set yet. Add them on the Settings tab."); showTab("settings"); return; }
+  const fmt = o => Object.entries(o).map(([k,v])=>`   ${k}: ${v}`).join("\n");
+  const body =
+`${settings.org}
+Monthly Summary – ${monthName(m)}
+
+TOTAL CALLS: ${s.n}
+
+TYPE OF CALL
+${fmt(s.type)}
+
+HAZARD
+${fmt(s.hazard)}
+
+INTENT
+${fmt(s.intent)}
+
+CANUTEC CONTACTED
+${fmt(s.canutec)}
+
+ON CAR SPECIALIST RESPONSE
+${fmt(s.oncar)}
+
+ADVICE GIVEN (multiple per call possible)
+${fmt(s.advice)}
+
+CALLS BY SPECIALIST
+${fmt(s.spec)||"   —"}
+
+The full report with call details is attached as a PDF.`;
+  let url = `mailto:${to}?subject=${encodeURIComponent("CBRNE / Haz-Mat Call Summary – "+monthName(m))}`;
+  if(settings.cc) url += `&cc=${encodeURIComponent(settings.cc)}`;
+  url += `&body=${encodeURIComponent(body)}`;
+  window.location.href = url;
+};
+
+// settings
+function loadSettingsUI(){
+  $("setSpecialists").value = settings.specialists.join("\n");
+  $("setEmails").value = settings.emails; $("setCc").value = settings.cc; $("setOrg").value = settings.org;
+}
+$("saveSettingsBtn").onclick = ()=>{
+  settings.specialists = $("setSpecialists").value.split("\n").map(s=>s.trim()).filter(Boolean);
+  settings.emails = $("setEmails").value.trim(); settings.cc = $("setCc").value.trim();
+  settings.org = $("setOrg").value.trim() || "BCEHS Paramedic Specialist – CBRNE / Haz-Mat Calls";
+  store.set(KEY_SET, settings); fillSpecialists($("fSpecialist").value); toast("Settings saved");
+};
+$("backupBtn").onclick = ()=> download(`CBRNE_Tracker_Backup_${todayStr()}.json`, JSON.stringify({app:"bcehs-cbrne-tracker",version:1,exported:new Date().toISOString(),settings,calls},null,2), "application/json");
+$("restoreFile").onchange = e=>{
+  const f=e.target.files[0]; if(!f) return;
+  const r=new FileReader();
+  r.onload = ()=>{
+    try{
+      const d=JSON.parse(r.result); if(!Array.isArray(d.calls)) throw new Error("Not a tracker backup file");
+      const mode = confirm(`Backup contains ${d.calls.length} call(s).\n\nOK = MERGE with the existing ${calls.length} call(s)\nCancel = REPLACE all existing data`);
+      if(mode){ const ids=new Set(calls.map(c=>c.id)); d.calls.forEach(c=>{ if(!ids.has(c.id)) calls.push(c); }); }
+      else { if(!confirm("Replace ALL existing data with the backup?")) return; calls=d.calls; if(d.settings) settings=d.settings; store.set(KEY_SET,settings); loadSettingsUI(); }
+      saveCalls(); fillSpecialists(); renderToday(); toast("Backup restored");
+    }catch(err){ alert("Restore failed: "+err.message); }
+    e.target.value="";
+  };
+  r.readAsText(f);
+};
+
+// init
+loadSettingsUI(); resetForm(); renderToday(); updateCount();
+})();
+</script>
+</body>
+</html>
