@@ -169,16 +169,9 @@
     <h2>Monthly Report</h2>
     <div class="row">
       <div><label for="rptMonth">Report Month</label><input type="month" id="rptMonth"></div>
-      <div style="align-self:flex-end" class="row">
-        <button class="btn" id="genBtn">Generate</button>
-        <button class="btn green" id="printBtn">Print / Save as PDF</button>
-        <button class="btn red" id="emailBtn">Email to Managers</button>
-        <button class="btn grey" id="rptCsvBtn">Month CSV</button>
-      </div>
     </div>
-    <p class="note" style="margin-bottom:0">To send: click <b>Print / Save as PDF</b>, save the PDF, then click <b>Email to Managers</b>. Your email program opens with the managers, subject and summary filled in. Attach the PDF and send.</p>
   </div>
-  <div class="card" id="reportArea"><p class="note">Select a month and click Generate.</p></div>
+  <div class="card" id="reportArea"><p class="note">Select a month to view summary.</p></div>
 </section>
 
 <!-- ================= SETTINGS ================= -->
@@ -389,7 +382,6 @@ $("csvBtn").onclick = ()=> download(`CBRNE_HRH_Calls_${logShowAll?"All":$("logMo
 
 $("rptMonth").value = thisMonth();
 $("rptMonth").oninput = renderReport;
-$("genBtn").onclick = renderReport;
 const monthCalls = m => calls.filter(c=>c.date.startsWith(m)).sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
 function tally(list, key, cats){
   const o={}; cats.forEach(c=>o[c]=0);
@@ -412,7 +404,8 @@ function summaryData(m){
     nCbrne:list.filter(c=>c.hazard && c.hazard!=="N/A").length, nHrh:list.filter(c=>c.hrh && c.hrh!=="N/A").length, intent:tally(list,"intent",INTENTS),
     canutec:tally(list,"canutec",["Yes","No"]), oncar:tally(list,"oncar",["Yes","No"]), advice:tally(list,"advice",ADVICE),
     spec:Object.fromEntries(Object.entries(tally(list,"specialist",specs)).filter(([k,v])=>v>0)) };
-}
+  }
+
 function renderReport(){
   const m=$("rptMonth").value; if(!m) return;
   const s=summaryData(m);
@@ -440,23 +433,8 @@ function renderReport(){
       ${bars("Advice Given*", s.advice, s.n)}
       ${bars("Calls by Specialist", s.spec, s.n)}
     </div>
-    <p class="note">*More than one type of advice can be recorded per call, so percentages may add up to more than 100%. HRH list shows only hazards recorded this month. A call can count as both CBRNE and HRH.</p>
-    <h3 style="color:var(--navy);margin-top:22px;border-bottom:2px solid var(--accent);padding-bottom:4px">Call Detail</h3>
-    <table>${rowsHTML(s.list,false)}</table>` : `<p class="note">No calls were recorded for this month.</p>`}`;
+    <p class="note">*More than one type of advice can be recorded per call, so percentages may add up to more than 100%. HRH list shows only hazards recorded this month. A call can count as both CBRNE and HRH.</p>` : `<p class="note">No calls were recorded for this month.</p>`}`;
 }
-$("printBtn").onclick = ()=>{ renderReport(); setTimeout(()=>window.print(),100); };
-$("rptCsvBtn").onclick = ()=>{ const m=$("rptMonth").value; download(`CBRNE_HRH_Calls_${m}.csv`, "\uFEFF"+toCSV(monthCalls(m)), "text/csv"); };
-$("emailBtn").onclick = ()=>{
-  const m=$("rptMonth").value, s=summaryData(m);
-  const to = settings.emails.split(/[\s,;]+/).filter(Boolean).join(",");
-  if(!to){ alert("No manager emails are set yet. Add them on the Settings tab."); showTab("settings"); return; }
-  const fmt = o => Object.entries(o).map(([k,v])=>`   ${k}: ${v}`).join("\n");
-  const body = `${settings.org}\nMonthly Summary – ${monthName(m)}\n\nTOTAL CALLS: ${s.n}\n\nTYPE OF CALL\n${fmt(s.type)}\n\nCBRNE CALLS: ${s.nCbrne}\nCBRNE HAZARD\n${fmt(s.hazard)}\n\nHIGH RISK HAZARD CALLS: ${s.nHrh}\nHIGH RISK HAZARDS (HRH)\n${fmt(s.hrh)||"   None recorded"}\n\nINTENT\n${fmt(s.intent)}\n\nCANUTEC CONTACTED\n${fmt(s.canutec)}\n\nON CAR SPECIALIST RESPONSE\n${fmt(s.oncar)}\n\nADVICE GIVEN (multiple per call possible)\n${fmt(s.advice)}\n\nCALLS BY SPECIALIST\n${fmt(s.spec)||"   —"}\n\nThe full report with call details is attached as a PDF.`;
-  let url = `mailto:${to}?subject=${encodeURIComponent("CBRNE / Haz-Mat & High Risk Hazard Call Summary – "+monthName(m))}`;
-  if(settings.cc) url += `&cc=${encodeURIComponent(settings.cc)}`;
-  url += `&body=${encodeURIComponent(body)}`;
-  window.location.href = url;
-};
 
 function loadSettingsUI(){
   $("setSpecialists").value = settings.specialists.join("\n");
