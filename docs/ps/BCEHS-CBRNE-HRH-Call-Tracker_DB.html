@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>BCEHS Paramedic Specialist – CBRNE / Haz-Mat Call Tracker</title>
+<title>BCEHS Paramedic Specialist – CBRNE / Haz-Mat & High Risk Hazard Call Tracker</title>
 <style>
   :root{
     --navy:#0b2545; --blue:#13315c; --accent:#c8102e; --bg:#eef2f6; --card:#fff;
@@ -63,12 +63,13 @@
     .stat{break-inside:avoid}
   }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
 <header>
   <div>
-    <h1>CBRNE / Haz-Mat Call Tracker</h1>
+    <h1>CBRNE / Haz-Mat &amp; High Risk Hazard Call Tracker</h1>
     <div class="sub">BCEHS Paramedic Specialist Desk</div>
   </div>
   <div class="sub" id="clock"></div>
@@ -100,13 +101,16 @@
         <div><label for="fType">Nature of Call – Type</label>
           <select id="fType" required>
             <option value="">— Select —</option>
-            <option>Transportation</option><option>Residential</option><option>Industry</option>
+            <option>Transportation</option><option>Residential</option><option>Industry</option><option>Outdoor / Back Country</option><option>Other</option>
           </select></div>
-        <div><label for="fHazard">Hazard</label>
+        <div><label for="fHazard">CBRNE Hazard</label>
           <select id="fHazard" required>
             <option value="">— Select —</option>
             <option>Chemical</option><option>Biological</option><option>Radioactive</option><option>Nuclear</option><option>Explosive</option>
+            <option value="N/A">N/A – HRH only</option>
           </select></div>
+        <div class="span2"><label for="fHrh">High Risk Hazard (HRH Field Support Guide)</label>
+          <select id="fHrh" required></select></div>
         <div><label for="fIntent">Intent</label>
           <select id="fIntent" required>
             <option value="">— Select —</option>
@@ -210,39 +214,50 @@
 
 <script>
 (function(){
-const ADVICE = ["Decon","Scene Safety","Chemical Properties","On-Scene Treatment Recommendations"];
-const TYPES = ["Transportation","Residential","Industry"];
+const SUPABASE_URL = "https://sbpjwivurfjvjppcitof.supabase.co/rest/v1/"; // <-- PASTE PROJECT URL
+const SUPABASE_KEY = "sb_publishable_UsqAFgyYqlDoHp9Zhz24bA_ZQogrvTU";               // <-- PASTE ANON KEY
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+const ADVICE = ["Decon","Scene Safety","Chemical Properties","On-Scene Treatment Recommendations","PPE","Staging / Safe Approach","Do Not Enter / No Rescue","Specialized Resources Requested"];
+const TYPES = ["Transportation","Residential","Industry","Outdoor / Back Country","Other"];
 const HAZARDS = ["Chemical","Biological","Radioactive","Nuclear","Explosive"];
 const INTENTS = ["Accidental","Self-harm","Intentional"];
-const KEY_CALLS = "bcehs_cbrne_calls_v1", KEY_SET = "bcehs_cbrne_settings_v1";
+const HRH = ["Avalanche hazard areas", "Energized machinery / equipment", "Moving vehicles and equipment", "Around or over water", "Flooding", "Confined spaces", "Working at heights", "Blasting and explosions", "Pressure washing & abrasive blasting", "Excavations or trenches", "Wildfire, fire, flames and lightning", "Oil and gas industry", "Insects, animals and wildlife", "Aircraft", "Mines or underground workings", "Electricity", "Falling hazards", "Resource or access roads", "Back country response", "Violence & weapons in the workplace", "Tunnels", "Slopes and inclines", "Commercial cargo (tankers / transports / couriers)", "Chemical responses", "Biological responses", "Radiological responses", "Toxic gases", "Environmental exposure – cold", "Environmental exposure – heat", "Noise / vibration", "Unknown substance responses"];
+const hrhLabel = i => `HRH ${i+1} – ${HRH[i]}`;
+const HRH_LABELS = HRH.map((h,i)=>hrhLabel(i));
+const DEFAULT_ORG = "BCEHS Paramedic Specialist – CBRNE / Haz-Mat & High Risk Hazard Calls";
+const KEY_SET = "bcehs_cbrne_settings_v1";
 
 const $ = id => document.getElementById(id);
 const store = {
   get(k,d){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; }catch(e){ return d; } },
-  set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); return true; }catch(e){ alert("Could not save data: " + e.message); return false; } }
+  set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); return true; }catch(e){ return false; } }
 };
 const DEFAULT_SPECS = ["299PS1D","299PS2D","299PS3","299PS1N"];
-let calls = store.get(KEY_CALLS, []);
-let settings = store.get(KEY_SET, {
-  specialists:DEFAULT_SPECS.slice(),
-  emails:"", cc:"", org:"BCEHS Paramedic Specialist – CBRNE / Haz-Mat Calls"
-});
+let calls = [];
+let settings = store.get(KEY_SET, { specialists:DEFAULT_SPECS.slice(), emails:"", cc:"", org:DEFAULT_ORG });
 
-if(settings.specialists.join("|")==="Paramedic Specialist 1|Paramedic Specialist 2"){ settings.specialists=DEFAULT_SPECS.slice(); store.set(KEY_SET,settings); }
 const pad = n => String(n).padStart(2,"0");
 const todayStr = () => { const d=new Date(); return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; };
 const nowTime = () => { const d=new Date(); return `${pad(d.getHours())}:${pad(d.getMinutes())}`; };
 const thisMonth = () => todayStr().slice(0,7);
 const monthName = m => { const [y,mo]=m.split("-"); return new Date(+y, +mo-1, 1).toLocaleString("en-CA",{month:"long",year:"numeric"}); };
 const esc = s => String(s??"").replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-function toast(msg){ const t=$("toast"); t.textContent=msg; t.style.display="block"; clearTimeout(t._h); t._h=setTimeout(()=>t.style.display="none",2200); }
-function saveCalls(){ store.set(KEY_CALLS, calls); updateCount(); }
-function updateCount(){ $("countNote").textContent = `${calls.length} call(s) stored on this computer.`; }
+function toast(msg){ const t=$("toast"); t.textContent=msg; t.style.display="block"; clearTimeout(t._h); t._h=setTimeout(()=>t.style.display="none",2500); }
+function updateCount(){ $("countNote").textContent = `${calls.length} call(s) synced in central database.`; }
 
-// clock
+// --- DATABASE SYNC ---
+async function loadCalls(){
+  const { data, error } = await db.from("calls").select("*").order("date", { ascending: false }).order("time", { ascending: false });
+  if(error){ alert("Database load error: " + error.message); return; }
+  calls = (data || []).map(c => ({ ...c, advice: c.advice || [], followups: c.followups || [] }));
+  renderToday(); updateCount();
+  if(!$("tab-log").classList.contains("hidden")) renderLog();
+  if(!$("tab-report").classList.contains("hidden")) renderReport();
+}
+
+// --- UI & FORM LOGIC ---
 setInterval(()=>{ $("clock").textContent = new Date().toLocaleString("en-CA",{dateStyle:"full",timeStyle:"short"}); },1000);
-
-// tabs
 document.querySelectorAll("nav button").forEach(b=>b.addEventListener("click",()=>showTab(b.dataset.tab)));
 function showTab(t){
   document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active", b.dataset.tab===t));
@@ -251,7 +266,7 @@ function showTab(t){
   if(t==="report") renderReport();
 }
 
-// form setup
+$("fHrh").innerHTML = `<option value="">— Select —</option><option value="N/A">N/A – CBRNE only</option>` + HRH_LABELS.map(l=>`<option>${esc(l)}</option>`).join("");
 $("adviceChecks").innerHTML = ADVICE.map((a,i)=>`<label><input type="checkbox" value="${a}" id="adv${i}"> ${a}</label>`).join("");
 function fillSpecialists(sel){
   const s=$("fSpecialist");
@@ -271,30 +286,38 @@ $("nowBtn").onclick = ()=> $("fTime").value = nowTime();
 $("clearBtn").onclick = resetForm;
 $("cancelEditBtn").onclick = resetForm;
 
-$("callForm").addEventListener("submit", e=>{
+$("callForm").addEventListener("submit", async e=>{
   e.preventDefault();
   const advice = ADVICE.filter((a,i)=>$("adv"+i).checked);
+  if($("fHazard").value==="N/A" && $("fHrh").value==="N/A"){ alert("Select a CBRNE hazard, a High Risk Hazard, or both. Only one of them can be N/A."); return; }
+  const editId = $("editId").value;
+  const existing = calls.find(c=>c.id===editId);
   const rec = {
-    id: $("editId").value || ("c"+Date.now()+Math.random().toString(36).slice(2,6)),
+    id: editId || ("c"+Date.now()+Math.random().toString(36).slice(2,6)),
     date:$("fDate").value, incident:$("fIncident").value.trim(), time:$("fTime").value,
-    type:$("fType").value, hazard:$("fHazard").value, intent:$("fIntent").value,
+    type:$("fType").value, hazard:$("fHazard").value, hrh:$("fHrh").value, intent:$("fIntent").value,
     canutec:$("fCanutec").value, oncar:$("fOncar").value, advice, specialist:$("fSpecialist").value,
     notes:$("fNotes").value.trim(), comments:$("fComments").value.trim(),
-    followups:[], logged:new Date().toISOString()
+    followups: existing ? (existing.followups||[]) : [],
+    logged: existing ? existing.logged : new Date().toISOString()
   };
   const dup = calls.find(c=>c.incident.toLowerCase()===rec.incident.toLowerCase() && c.id!==rec.id);
   if(dup && !confirm(`Incident ${rec.incident} is already logged (${dup.date} ${dup.time}). Save another entry anyway?`)) return;
-  const idx = calls.findIndex(c=>c.id===rec.id);
-  if(idx>=0){ rec.logged = calls[idx].logged; rec.followups = calls[idx].followups||[]; calls[idx]=rec; toast("Call updated"); }
-  else { calls.push(rec); toast("Call saved"); }
-  saveCalls(); resetForm(); renderToday();
+
+  $("saveBtn").disabled = true; $("saveBtn").textContent = "Saving...";
+  const { error } = await db.from("calls").upsert(rec);
+  $("saveBtn").disabled = false; $("saveBtn").textContent = "Save Call";
+  if(error){ alert("Save failed: " + error.message); return; }
+  toast(editId ? "Call updated" : "Call saved to database");
+  resetForm();
+  await loadCalls();
 });
 
 function editCall(id){
   const c = calls.find(x=>x.id===id); if(!c) return;
   showTab("entry");
   $("editId").value=c.id; $("fDate").value=c.date; $("fIncident").value=c.incident; $("fTime").value=c.time;
-  $("fType").value=c.type; $("fHazard").value=c.hazard; $("fIntent").value=c.intent; $("fCanutec").value=c.canutec; $("fOncar").value=c.oncar||"";
+  $("fType").value=c.type; $("fHazard").value=c.hazard; $("fHrh").value=c.hrh||"N/A"; $("fIntent").value=c.intent; $("fCanutec").value=c.canutec; $("fOncar").value=c.oncar||"";
   fillSpecialists(c.specialist);
   ADVICE.forEach((a,i)=>$("adv"+i).checked = c.advice.includes(a));
   $("fNotes").value=c.notes||""; $("fComments").value=c.comments||"";
@@ -305,39 +328,42 @@ function editCall(id){
   $("cancelEditBtn").classList.remove("hidden");
   window.scrollTo(0,0);
 }
-function deleteCall(id){
+async function deleteCall(id){
   const c = calls.find(x=>x.id===id); if(!c) return;
   if(!confirm(`Delete incident ${c.incident} (${c.date})? This cannot be undone.`)) return;
-  calls = calls.filter(x=>x.id!==id); saveCalls(); renderLog(); renderToday(); toast("Call deleted");
+  const { error } = await db.from("calls").delete().eq("id", id);
+  if(error){ alert("Delete failed: " + error.message); return; }
+  toast("Call deleted"); await loadCalls();
 }
-function addFollowup(id){
+async function addFollowup(id){
   const c = calls.find(x=>x.id===id); if(!c) return;
   const text = prompt(`Add a follow-up comment to incident ${c.incident}:`); if(!text || !text.trim()) return;
   const by = prompt("Your name (specialist):", $("fSpecialist").value || settings.specialists[0] || "") || "";
-  c.followups = c.followups || [];
+  const followups = [...(c.followups || [])];
   const d=new Date();
-  c.followups.push({ts:`${todayStr()} ${pad(d.getHours())}:${pad(d.getMinutes())}`, by:by.trim(), text:text.trim()});
-  saveCalls(); renderLog(); renderToday(); toast("Comment added");
+  followups.push({ts:`${todayStr()} ${pad(d.getHours())}:${pad(d.getMinutes())}`, by:by.trim(), text:text.trim()});
+  const { error } = await db.from("calls").update({ followups }).eq("id", id);
+  if(error){ alert("Comment failed: " + error.message); return; }
+  toast("Comment added"); await loadCalls();
 }
 window._edit = editCall; window._del = deleteCall; window._fu = addFollowup;
+
 function commentsHTML(c){
   let h = c.comments ? `<div>${esc(c.comments).replace(/\n/g,"<br>")}</div>` : "";
   (c.followups||[]).forEach(f=>{ h += `<div class="fu"><span class="note">${esc(f.ts)}${f.by?" – "+esc(f.by):""}</span><br>${esc(f.text)}</div>`; });
   return h || "—";
 }
-
 const sortCalls = arr => arr.slice().sort((a,b)=> (b.date+b.time).localeCompare(a.date+a.time));
 function rowsHTML(list, actions){
   if(!list.length) return `<tr><td class="note">No calls found.</td></tr>`;
-  return `<thead><tr><th>Date</th><th>Time</th><th>Incident #</th><th>Type</th><th>Hazard</th><th>Intent</th><th>CANUTEC</th><th>On Car PS</th><th>Advice Given</th><th>Specialist</th><th>Product / UN</th><th style="min-width:220px">Comments</th>${actions?'<th class="noprint"></th>':''}</tr></thead><tbody>` +
-    list.map(c=>`<tr><td>${esc(c.date)}</td><td>${esc(c.time)}</td><td><b>${esc(c.incident)}</b></td><td>${esc(c.type)}</td><td>${esc(c.hazard)}</td><td>${esc(c.intent)}</td><td>${esc(c.canutec)}</td><td>${esc(c.oncar||"—")}</td><td>${c.advice.map(a=>`<span class="pill">${esc(a)}</span>`).join(" ")||"—"}</td><td>${esc(c.specialist)}</td><td>${esc(c.notes)}</td><td>${commentsHTML(c)}</td>${actions?`<td class="noprint" style="white-space:nowrap"><button class="btn sm green" onclick="_fu('${c.id}')">+ Comment</button> <button class="btn sm grey" onclick="_edit('${c.id}')">Edit</button> <button class="btn sm red" onclick="_del('${c.id}')">Del</button></td>`:''}</tr>`).join("") + `</tbody>`;
+  return `<thead><tr><th>Date</th><th>Time</th><th>Incident #</th><th>Type</th><th>CBRNE Hazard</th><th>HRH</th><th>Intent</th><th>CANUTEC</th><th>On Car PS</th><th>Advice Given</th><th>Specialist</th><th>Product / UN</th><th style="min-width:220px">Comments</th>${actions?'<th class="noprint"></th>':''}</tr></thead><tbody>` +
+    list.map(c=>`<tr><td>${esc(c.date)}</td><td>${esc(c.time)}</td><td><b>${esc(c.incident)}</b></td><td>${esc(c.type)}</td><td>${esc(c.hazard)}</td><td>${esc(c.hrh||"—")}</td><td>${esc(c.intent)}</td><td>${esc(c.canutec)}</td><td>${esc(c.oncar||"—")}</td><td>${c.advice.map(a=>`<span class="pill">${esc(a)}</span>`).join(" ")||"—"}</td><td>${esc(c.specialist)}</td><td>${esc(c.notes)}</td><td>${commentsHTML(c)}</td>${actions?`<td class="noprint" style="white-space:nowrap"><button class="btn sm green" onclick="_fu('${c.id}')">+ Comment</button> <button class="btn sm grey" onclick="_edit('${c.id}')">Edit</button> <button class="btn sm red" onclick="_del('${c.id}')">Del</button></td>`:''}</tr>`).join("") + `</tbody>`;
 }
 function renderToday(){
   const t = sortCalls(calls.filter(c=>c.date===todayStr()));
   $("todayList").innerHTML = t.length ? `<div style="overflow:auto"><table>${rowsHTML(t,true)}</table></div>` : `<span class="note">No calls logged today.</span>`;
 }
 
-// log
 let logShowAll=false;
 $("logMonth").value = thisMonth();
 $("logMonth").oninput = ()=>{ logShowAll=false; renderLog(); };
@@ -349,20 +375,18 @@ function logFiltered(){
 }
 function renderLog(){ $("logTable").innerHTML = rowsHTML(logFiltered(), true); }
 
-// CSV
 function toCSV(list){
-  const h=["Date","Time of Call","Incident Number","Type","Hazard","Intent","CANUTEC Contacted","On Car Specialist Response","Advice Given","Specialist","Product / UN Number","Comments","Follow-up Comments"];
+  const h=["Date","Time of Call","Incident Number","Type","CBRNE Hazard","High Risk Hazard","Intent","CANUTEC Contacted","On Car Specialist Response","Advice Given","Specialist","Product / UN Number","Comments","Follow-up Comments"];
   const q=v=>`"${String(v??"").replace(/"/g,'""')}"`;
-  return [h.join(",")].concat(list.map(c=>[c.date,c.time,c.incident,c.type,c.hazard,c.intent,c.canutec,c.oncar||"",c.advice.join("; "),c.specialist,c.notes,c.comments,(c.followups||[]).map(f=>`[${f.ts}${f.by?" "+f.by:""}] ${f.text}`).join(" | ")].map(q).join(","))).join("\r\n");
+  return [h.join(",")].concat(list.map(c=>[c.date,c.time,c.incident,c.type,c.hazard,c.hrh||"",c.intent,c.canutec,c.oncar||"",c.advice.join("; "),c.specialist,c.notes,c.comments,(c.followups||[]).map(f=>`[${f.ts}${f.by?" "+f.by:""}] ${f.text}`).join(" | ")].map(q).join(","))).join("\r\n");
 }
 function download(name, content, mime){
   const blob = new Blob([content],{type:mime}); const a=document.createElement("a");
   a.href=URL.createObjectURL(blob); a.download=name; document.body.appendChild(a); a.click();
   setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove();},500);
 }
-$("csvBtn").onclick = ()=> download(`CBRNE_Calls_${logShowAll?"All":$("logMonth").value}.csv`, "﻿"+toCSV(logFiltered()), "text/csv");
+$("csvBtn").onclick = ()=> download(`CBRNE_HRH_Calls_${logShowAll?"All":$("logMonth").value}.csv`, "\uFEFF"+toCSV(logFiltered()), "text/csv");
 
-// report
 $("rptMonth").value = thisMonth();
 $("rptMonth").oninput = renderReport;
 $("genBtn").onclick = renderReport;
@@ -378,11 +402,14 @@ function bars(title, obj, total){
     return `<div class="bar"><span class="lbl">${esc(k)}</span><span class="trk"><span class="fill" style="width:${pct}%;display:block"></span></span><span class="n">${v} (${pct}%)</span></div>`;
   }).join("") + `</div>`;
 }
+const noNA = o => { delete o["N/A"]; return o; };
 function summaryData(m){
   const list = monthCalls(m), n=list.length;
   const specs = [...new Set(settings.specialists.concat(list.map(c=>c.specialist)))].filter(Boolean);
   return { list, n,
-    type:tally(list,"type",TYPES), hazard:tally(list,"hazard",HAZARDS), intent:tally(list,"intent",INTENTS),
+    type:tally(list,"type",TYPES), hazard:noNA(tally(list,"hazard",HAZARDS)),
+    hrh:Object.fromEntries(Object.entries(noNA(tally(list,"hrh",[]))).sort((a,b)=>HRH_LABELS.indexOf(a[0])-HRH_LABELS.indexOf(b[0]))),
+    nCbrne:list.filter(c=>c.hazard && c.hazard!=="N/A").length, nHrh:list.filter(c=>c.hrh && c.hrh!=="N/A").length, intent:tally(list,"intent",INTENTS),
     canutec:tally(list,"canutec",["Yes","No"]), oncar:tally(list,"oncar",["Yes","No"]), advice:tally(list,"advice",ADVICE),
     spec:Object.fromEntries(Object.entries(tally(list,"specialist",specs)).filter(([k,v])=>v>0)) };
 }
@@ -397,65 +424,40 @@ function renderReport(){
     </div>
     <div class="row" style="gap:40px;margin-bottom:16px">
       <div><div class="note">TOTAL CALLS</div><div class="big">${s.n}</div></div>
+      <div><div class="note">CBRNE CALLS</div><div class="big">${s.nCbrne}</div></div>
+      <div><div class="note">HIGH RISK HAZARD CALLS</div><div class="big">${s.nHrh}</div></div>
       <div><div class="note">CANUTEC CONTACTED</div><div class="big">${s.canutec.Yes}</div></div>
       <div><div class="note">ON CAR PS RESPONSE</div><div class="big">${s.oncar.Yes}</div></div>
       <div><div class="note">INTENTIONAL / SELF-HARM</div><div class="big">${s.intent.Intentional + s.intent["Self-harm"]}</div></div>
     </div>
     ${s.n ? `<div class="stats">
       ${bars("Type of Call", s.type, s.n)}
-      ${bars("Hazard (CBRNE)", s.hazard, s.n)}
+      ${bars("CBRNE Hazard", s.hazard, s.n)}
+      ${Object.keys(s.hrh).length ? bars("High Risk Hazards (HRH)", s.hrh, s.n) : ""}
       ${bars("Intent", s.intent, s.n)}
       ${bars("CANUTEC Contacted", s.canutec, s.n)}
       ${bars("On Car Specialist Response", s.oncar, s.n)}
       ${bars("Advice Given*", s.advice, s.n)}
       ${bars("Calls by Specialist", s.spec, s.n)}
     </div>
-    <p class="note">*More than one type of advice can be recorded per call, so percentages may add up to more than 100%.</p>
+    <p class="note">*More than one type of advice can be recorded per call, so percentages may add up to more than 100%. HRH list shows only hazards recorded this month. A call can count as both CBRNE and HRH.</p>
     <h3 style="color:var(--navy);margin-top:22px;border-bottom:2px solid var(--accent);padding-bottom:4px">Call Detail</h3>
     <table>${rowsHTML(s.list,false)}</table>` : `<p class="note">No calls were recorded for this month.</p>`}`;
 }
 $("printBtn").onclick = ()=>{ renderReport(); setTimeout(()=>window.print(),100); };
-$("rptCsvBtn").onclick = ()=>{ const m=$("rptMonth").value; download(`CBRNE_Calls_${m}.csv`, "﻿"+toCSV(monthCalls(m)), "text/csv"); };
+$("rptCsvBtn").onclick = ()=>{ const m=$("rptMonth").value; download(`CBRNE_HRH_Calls_${m}.csv`, "\uFEFF"+toCSV(monthCalls(m)), "text/csv"); };
 $("emailBtn").onclick = ()=>{
   const m=$("rptMonth").value, s=summaryData(m);
   const to = settings.emails.split(/[\s,;]+/).filter(Boolean).join(",");
   if(!to){ alert("No manager emails are set yet. Add them on the Settings tab."); showTab("settings"); return; }
   const fmt = o => Object.entries(o).map(([k,v])=>`   ${k}: ${v}`).join("\n");
-  const body =
-`${settings.org}
-Monthly Summary – ${monthName(m)}
-
-TOTAL CALLS: ${s.n}
-
-TYPE OF CALL
-${fmt(s.type)}
-
-HAZARD
-${fmt(s.hazard)}
-
-INTENT
-${fmt(s.intent)}
-
-CANUTEC CONTACTED
-${fmt(s.canutec)}
-
-ON CAR SPECIALIST RESPONSE
-${fmt(s.oncar)}
-
-ADVICE GIVEN (multiple per call possible)
-${fmt(s.advice)}
-
-CALLS BY SPECIALIST
-${fmt(s.spec)||"   —"}
-
-The full report with call details is attached as a PDF.`;
-  let url = `mailto:${to}?subject=${encodeURIComponent("CBRNE / Haz-Mat Call Summary – "+monthName(m))}`;
+  const body = `${settings.org}\nMonthly Summary – ${monthName(m)}\n\nTOTAL CALLS: ${s.n}\n\nTYPE OF CALL\n${fmt(s.type)}\n\nCBRNE CALLS: ${s.nCbrne}\nCBRNE HAZARD\n${fmt(s.hazard)}\n\nHIGH RISK HAZARD CALLS: ${s.nHrh}\nHIGH RISK HAZARDS (HRH)\n${fmt(s.hrh)||"   None recorded"}\n\nINTENT\n${fmt(s.intent)}\n\nCANUTEC CONTACTED\n${fmt(s.canutec)}\n\nON CAR SPECIALIST RESPONSE\n${fmt(s.oncar)}\n\nADVICE GIVEN (multiple per call possible)\n${fmt(s.advice)}\n\nCALLS BY SPECIALIST\n${fmt(s.spec)||"   —"}\n\nThe full report with call details is attached as a PDF.`;
+  let url = `mailto:${to}?subject=${encodeURIComponent("CBRNE / Haz-Mat & High Risk Hazard Call Summary – "+monthName(m))}`;
   if(settings.cc) url += `&cc=${encodeURIComponent(settings.cc)}`;
   url += `&body=${encodeURIComponent(body)}`;
   window.location.href = url;
 };
 
-// settings
 function loadSettingsUI(){
   $("setSpecialists").value = settings.specialists.join("\n");
   $("setEmails").value = settings.emails; $("setCc").value = settings.cc; $("setOrg").value = settings.org;
@@ -463,29 +465,29 @@ function loadSettingsUI(){
 $("saveSettingsBtn").onclick = ()=>{
   settings.specialists = $("setSpecialists").value.split("\n").map(s=>s.trim()).filter(Boolean);
   settings.emails = $("setEmails").value.trim(); settings.cc = $("setCc").value.trim();
-  settings.org = $("setOrg").value.trim() || "BCEHS Paramedic Specialist – CBRNE / Haz-Mat Calls";
+  settings.org = $("setOrg").value.trim() || DEFAULT_ORG;
   store.set(KEY_SET, settings); fillSpecialists($("fSpecialist").value); toast("Settings saved");
 };
 $("backupBtn").onclick = ()=> download(`CBRNE_Tracker_Backup_${todayStr()}.json`, JSON.stringify({app:"bcehs-cbrne-tracker",version:1,exported:new Date().toISOString(),settings,calls},null,2), "application/json");
-$("restoreFile").onchange = e=>{
+$("restoreFile").onchange = async e=>{
   const f=e.target.files[0]; if(!f) return;
   const r=new FileReader();
-  r.onload = ()=>{
+  r.onload = async ()=>{
     try{
       const d=JSON.parse(r.result); if(!Array.isArray(d.calls)) throw new Error("Not a tracker backup file");
-      const mode = confirm(`Backup contains ${d.calls.length} call(s).\n\nOK = MERGE with the existing ${calls.length} call(s)\nCancel = REPLACE all existing data`);
-      if(mode){ const ids=new Set(calls.map(c=>c.id)); d.calls.forEach(c=>{ if(!ids.has(c.id)) calls.push(c); }); }
-      else { if(!confirm("Replace ALL existing data with the backup?")) return; calls=d.calls; if(d.settings) settings=d.settings; store.set(KEY_SET,settings); loadSettingsUI(); }
-      saveCalls(); fillSpecialists(); renderToday(); toast("Backup restored");
+      if(!confirm(`Import ${d.calls.length} call(s) from backup into central database?`)) return;
+      const { error } = await db.from("calls").upsert(d.calls);
+      if(error) throw error;
+      await loadCalls(); toast("Backup imported");
     }catch(err){ alert("Restore failed: "+err.message); }
     e.target.value="";
   };
   r.readAsText(f);
 };
 
-// init
-loadSettingsUI(); resetForm(); renderToday(); updateCount();
+loadSettingsUI(); resetForm(); loadCalls();
 })();
+
 </script>
 </body>
 </html>
