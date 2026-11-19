@@ -7,7 +7,7 @@
 
 ## ⚡ Quick Links
 !!! info "Quick Navigation"
-    * [HazMat/ HRH Tracking Tool](operational/BCEHS-CBRNE-HRH-Call-Tracker_DB.html)
+    * [HazMat/ HRH Tracking Tool](operational/BCEHS-CBRNE-HRH-Call-Tracker_DB.html){:target="_blank"}
     * [High Threat Pathogen Tool](clinical/htp-tool/)
     * [IDCT Activation](clinical/htp-idct)
 ---
